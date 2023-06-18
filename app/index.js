@@ -1,9 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image } from "../components/atom/Image/Image";
 
 export default function App() {
     return (
         <SafeAreaView style={styles.container}>
+            <Image width={80} height={120} src="../assets/favicon.png" />
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Text>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
