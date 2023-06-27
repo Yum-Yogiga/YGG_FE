@@ -13,6 +13,7 @@ export function FormInput({ inputValidation, placeholder, onChange, ...props }) 
             onChange(changedValue);
         } else {
             setInputValidity(false);
+            setValue(changedValue);
         }
     };
 
