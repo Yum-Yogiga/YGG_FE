@@ -19,7 +19,7 @@ export function FormInput({ inputValidation, placeholder, onChange, ...props }) 
     return (
         <View>
             <TextInput
-                style={styles.input}
+                style={[styles.input, inputValidity ? styles.valueValid : styles.valueInvalid]}
                 value={value}
                 placeholder={placeholder}
                 onChangeText={handleChangeText}
@@ -35,6 +35,12 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
+    },
+    valueValid: {
+        borderColor: "black",
+    },
+    valueInvalid: {
+        borderColor: "red",
     },
 });
 
