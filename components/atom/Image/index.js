@@ -9,3 +9,5 @@ const ImageFrame = styled.Image`
     height: ${({ height }) => height}px;
     border-radius: 8px;
 `;
+
+export default Image;
