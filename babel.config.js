@@ -2,6 +2,20 @@ module.exports = function (api) {
     api.cache(true);
     return {
         presets: ["babel-preset-expo"],
-        plugins: [require.resolve("expo-router/babel")],
+        plugins: [
+            [
+                "module-resolver",
+                {
+                    root: ["./"],
+                    alias: {
+                        "components": "./components",
+                        "atom": "./components/atom",
+                        "molecule": "./components/molecule",
+                        "organism": "./components/organism",
+                    },
+                },
+            ],
+            require.resolve("expo-router/babel"),
+        ],
     };
 };
