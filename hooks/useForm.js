@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useForm(formEntry, onSubmit) {
+export function useForm(formEntry, onSubmit) {
     // 모든 값 초기화인 removeAll이 필요한가?
     // Submit의 async 필요
 
@@ -25,11 +25,10 @@ function useForm(formEntry, onSubmit) {
             ...errors,
             [name]: isValid,
         });
-        isValid &&
-            setValues({
+        setValues({
                 ...values,
                 [name]: changedValue,
-            });
+        });
     };
 
     const handleSubmit = () => {
@@ -60,5 +59,3 @@ function useForm(formEntry, onSubmit) {
         handleSubmit,
     };
 }
-
-export default useForm;
