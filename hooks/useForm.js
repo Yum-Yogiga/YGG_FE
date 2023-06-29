@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useForm({ formEntry, onSubmit }) {
+function useForm(formEntry, onSubmit) {
     // 모든 값 초기화인 removeAll이 필요한가?
     // Submit의 async 필요
 
