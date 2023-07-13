@@ -1,12 +1,8 @@
-import { React, useState } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import { React } from "react";
+import { StyleSheet, TextInput } from "react-native";
 
 export function FormInput({ error, ...props }) {
-    return (
-        <View>
-            <TextInput style={[styles.input, error ? styles.valueValid : styles.valueInvalid]} {...props} />
-        </View>
-    );
+    return <TextInput style={[styles.input, error ? styles.valueValid : styles.valueInvalid]} {...props} />;
 }
 
 const styles = StyleSheet.create({
