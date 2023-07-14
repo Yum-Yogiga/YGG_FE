@@ -1,12 +1,10 @@
 import { useState } from "react";
 
 export function useForm(formEntry, onSubmit) {
-    // 모든 값 초기화인 removeAll이 필요한가?
-    // Submit의 async 필요
-
     const initialValues = {};
     const initialErrors = {};
     const validationCheck = {};
+
     formEntry.forEach(({ name, value, validation }) => {
         initialValues[name] = value;
         initialErrors[name] = true;
@@ -18,7 +16,6 @@ export function useForm(formEntry, onSubmit) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (name) => (changedValue) => {
-        // <Input onChangeText={handleChange(name)} /> 과 같이 사용
         const isValid = validationCheck[name](changedValue);
 
         setErrors({
@@ -32,7 +29,6 @@ export function useForm(formEntry, onSubmit) {
     };
 
     const handleSubmit = () => {
-        // API 추가 필요
         let hasError = false;
 
         setIsLoading(true);
