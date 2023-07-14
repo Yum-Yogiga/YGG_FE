@@ -33,12 +33,12 @@ export function useForm(formEntry, onSubmit) {
 
     const handleSubmit = () => {
         // API 추가 필요
-        const hasError = false;
+        let hasError = false;
 
         setIsLoading(true);
 
         for (const prop in errors) {
-            if (!prop) hasError = true;
+            if (!errors[prop]) hasError = true;
         }
 
         if (hasError) {
