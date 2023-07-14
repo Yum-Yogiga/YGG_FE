@@ -26,8 +26,8 @@ export function useForm(formEntry, onSubmit) {
             [name]: isValid,
         });
         setValues({
-                ...values,
-                [name]: changedValue,
+            ...values,
+            [name]: changedValue,
         });
     };
 
@@ -44,7 +44,7 @@ export function useForm(formEntry, onSubmit) {
         if (hasError) {
             console.log("작성 항목 중 오류가 있습니다!");
         } else {
-            onSubmit();
+            onSubmit(values);
             console.log("제출 완료");
         }
 
