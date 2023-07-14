@@ -1,8 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
+import { useForm } from "hooks";
 import { FormInput } from "molecule";
 
 export const LoginForm = ({ formData, onSubmit, ...props }) => {
+    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(formData, onSubmit);
+
     return (
         <View style={styles.container} {...props}>
             <View style={styles.formBody}>
@@ -11,11 +14,13 @@ export const LoginForm = ({ formData, onSubmit, ...props }) => {
                         style={[styles.formInput, formData.length == index + 1 && styles.lastInput]}
                         key={name}
                         placeholder={name}
-                        error={true}
+                        value={values[name]}
+                        error={errors[name]}
+                        onChangeText={handleChange(name)}
                     />
                 ))}
             </View>
-            <TouchableOpacity style={styles.submitButton}>
+            <TouchableOpacity style={styles.submitButton} disabled={isLoading} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>로그인</Text>
             </TouchableOpacity>
             <Text style={styles.signupText}>
