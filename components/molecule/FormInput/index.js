@@ -1,22 +1,16 @@
 import { React } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-export function FormInput({ error, ...props }) {
-    return <TextInput style={[styles.input, error ? styles.valueValid : styles.valueInvalid]} {...props} />;
+export function FormInput({ error, style, ...props }) {
+    return <TextInput style={[styles.input, error || styles.valueInvalid, style]} {...props} />;
 }
 
 const styles = StyleSheet.create({
     input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
         padding: 10,
     },
-    valueValid: {
-        borderColor: "black",
-    },
     valueInvalid: {
-        borderColor: "red",
+        color: "red",
     },
 });
 
