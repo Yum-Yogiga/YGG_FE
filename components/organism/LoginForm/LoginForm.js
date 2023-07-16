@@ -8,23 +8,24 @@ export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...pro
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm(formData, onSubmit);
     const [showError, setShowError] = useState(autoErrorDisplay);
 
-    const handlePressSubmitButton = () => {
+    const handlePressSubmit = () => {
         if (!showError) setShowError(true);
         handleSubmit();
     };
 
-    const inputEnd = formData.length - 1;
+    const getInputStyle = (index) => {
+        const formInputStyle = [styles.formInput];
+        index == 0 && formInputStyle.push(styles.firstInput);
+        index == formData.length - 1 && formInputStyle.push(styles.lastInput);
+        return formInputStyle;
+    };
 
     return (
         <View style={styles.container} {...props}>
             <View style={styles.formBody}>
                 {formData.map(({ name }, index) => (
                     <FormInput
-                        style={[
-                            styles.formInput,
-                            index == 0 && styles.firstInput,
-                            index == inputEnd && styles.lastInput,
-                        ]}
+                        style={getInputStyle(index)}
                         key={name}
                         placeholder={name}
                         value={values[name]}
@@ -48,7 +49,7 @@ export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...pro
             <TouchableOpacity
                 style={[styles.submitButton, isLoading && styles.disabledButton]}
                 disabled={isLoading}
-                onPress={handlePressSubmitButton}
+                onPress={handlePressSubmit}
             >
                 <Text style={styles.buttonText}>로그인</Text>
             </TouchableOpacity>
