@@ -27,15 +27,14 @@ export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...pro
                     />
                 ))}
             </View>
-            <View>
-                {/*error 메시지 출력하는 곳 */}
+            <View style={styles.errorMessageView}>
                 {showError &&
                     formData.map(({ name }) => {
                         const message = errors[name];
                         if (message.length > 0)
                             return (
                                 <Text style={styles.errorMessage} key={name}>
-                                    {message}
+                                    *{message}
                                 </Text>
                             );
                     })}
@@ -67,14 +66,17 @@ const styles = StyleSheet.create({
     formInput: {
         width: 318,
         height: 52,
-        margin: 0,
         borderBottomWidth: 1,
         borderBottomColor: "#D9D9D9",
     },
     lastInput: {
         borderBottomWidth: 0,
     },
+    errorMessageView: {
+        marginVertical: 6,
+    },
     errorMessage: {
+        marginVertical: 2,
         color: "red",
         fontSize: 12,
     },
@@ -83,7 +85,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: 320,
         height: 52,
-        marginVertical: 12,
         borderRadius: 8,
         backgroundColor: "#FF8303",
     },
@@ -91,6 +92,7 @@ const styles = StyleSheet.create({
         color: "white",
     },
     signupText: {
+        marginVertical: 6,
         textAlign: "center",
     },
     signupLink: {
