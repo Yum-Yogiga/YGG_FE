@@ -45,7 +45,11 @@ export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...pro
                             );
                     })}
             </View>
-            <TouchableOpacity style={styles.submitButton} disabled={isLoading} onPress={handlePressSubmitButton}>
+            <TouchableOpacity
+                style={[styles.submitButton, isLoading && styles.disabledButton]}
+                disabled={isLoading}
+                onPress={handlePressSubmitButton}
+            >
                 <Text style={styles.buttonText}>로그인</Text>
             </TouchableOpacity>
             <Text style={styles.signupText}>
@@ -99,6 +103,9 @@ const styles = StyleSheet.create({
         height: 52,
         borderRadius: 8,
         backgroundColor: "#FF8303",
+    },
+    disabledButton: {
+        backgroundColor: "#D9D9D9",
     },
     buttonText: {
         color: "white",
