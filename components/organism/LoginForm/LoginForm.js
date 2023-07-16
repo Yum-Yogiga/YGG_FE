@@ -13,12 +13,18 @@ export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...pro
         handleSubmit();
     };
 
+    const inputEnd = formData.length - 1;
+
     return (
         <View style={styles.container} {...props}>
             <View style={styles.formBody}>
                 {formData.map(({ name }, index) => (
                     <FormInput
-                        style={[styles.formInput, formData.length == index + 1 && styles.lastInput]}
+                        style={[
+                            styles.formInput,
+                            index == 0 && styles.firstInput,
+                            index == inputEnd && styles.lastInput,
+                        ]}
                         key={name}
                         placeholder={name}
                         value={values[name]}
@@ -56,9 +62,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     formBody: {
-        backgroundColor: "white",
         borderRadius: 8,
-        borderWidth: 1,
         borderColor: "#D9D9D9",
         shadowColor: "black",
         elevation: 2,
@@ -66,11 +70,19 @@ const styles = StyleSheet.create({
     formInput: {
         width: 318,
         height: 52,
-        borderBottomWidth: 1,
-        borderBottomColor: "#D9D9D9",
+        borderWidth: 1,
+        borderBottomWidth: 0,
+        borderColor: "#D9D9D9",
+        backgroundColor: "white",
+    },
+    firstInput: {
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
     },
     lastInput: {
-        borderBottomWidth: 0,
+        borderBottomWidth: 1,
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
     },
     errorMessageView: {
         marginVertical: 6,
