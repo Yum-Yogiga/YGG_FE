@@ -7,7 +7,7 @@ export function useForm(formEntry, onSubmit) {
 
     formEntry.forEach(({ name, value, validation }) => {
         initialValues[name] = value;
-        initialErrors[name] = true;
+        initialErrors[name] = "";
         validationCheck[name] = validation;
     });
 
@@ -16,11 +16,11 @@ export function useForm(formEntry, onSubmit) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (name) => (changedValue) => {
-        const isValid = validationCheck[name](changedValue);
+        const errorMessage = validationCheck[name](changedValue);
 
         setErrors({
             ...errors,
-            [name]: isValid,
+            [name]: errorMessage,
         });
         setValues({
             ...values,
@@ -34,11 +34,10 @@ export function useForm(formEntry, onSubmit) {
         setIsLoading(true);
 
         for (const prop in errors) {
-            if (!errors[prop]) hasError = true;
+            if (errors[prop]) hasError = true;
         }
 
         if (hasError) {
-            console.log("작성 항목 중 오류가 있습니다!");
         } else {
             onSubmit(values);
             console.log("제출 완료");

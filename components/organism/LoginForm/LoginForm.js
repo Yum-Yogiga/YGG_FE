@@ -1,10 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useState } from "react";
 
 import { useForm } from "hooks";
 import { FormInput } from "molecule";
 
-export const LoginForm = ({ formData, onSubmit, ...props }) => {
+export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...props }) => {
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm(formData, onSubmit);
+    const [showError, setShowError] = useState(autoErrorDisplay);
+
+    const handlePressSubmitButton = () => {
+        if (!showError) setShowError(true);
+        handleSubmit();
+    };
 
     return (
         <View style={styles.container} {...props}>
@@ -15,12 +22,25 @@ export const LoginForm = ({ formData, onSubmit, ...props }) => {
                         key={name}
                         placeholder={name}
                         value={values[name]}
-                        error={errors[name]}
+                        error={showError && errors[name]}
                         onChangeText={handleChange(name)}
                     />
                 ))}
             </View>
-            <TouchableOpacity style={styles.submitButton} disabled={isLoading} onPress={handleSubmit}>
+            <View>
+                {/*error 메시지 출력하는 곳 */}
+                {showError &&
+                    formData.map(({ name }) => {
+                        const message = errors[name];
+                        if (message.length > 0)
+                            return (
+                                <Text style={styles.errorMessage} key={name}>
+                                    {message}
+                                </Text>
+                            );
+                    })}
+            </View>
+            <TouchableOpacity style={styles.submitButton} disabled={isLoading} onPress={handlePressSubmitButton}>
                 <Text style={styles.buttonText}>로그인</Text>
             </TouchableOpacity>
             <Text style={styles.signupText}>
@@ -53,6 +73,10 @@ const styles = StyleSheet.create({
     },
     lastInput: {
         borderBottomWidth: 0,
+    },
+    errorMessage: {
+        color: "red",
+        fontSize: 12,
     },
     submitButton: {
         justifyContent: "center",
