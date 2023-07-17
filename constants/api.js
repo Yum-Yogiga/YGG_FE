@@ -1,0 +1,1 @@
+export const API_END_POINT = 'http://43.201.156.30:8080'
