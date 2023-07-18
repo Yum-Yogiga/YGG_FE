@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "hooks";
 import { FormInput } from "molecule";
 
-export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...props }) => {
+export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoErrorDisplay = false, ...props }) => {
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm(formData, onSubmit);
     const [showError, setShowError] = useState(autoErrorDisplay);
 
@@ -51,7 +51,7 @@ export const LoginForm = ({ formData, onSubmit, autoErrorDisplay = false, ...pro
                 disabled={isLoading}
                 onPress={handlePressSubmit}
             >
-                <Text style={styles.buttonText}>로그인</Text>
+                <Text style={styles.buttonText}>{submitText}</Text>
             </TouchableOpacity>
             <Text style={styles.signupText}>
                 회원이 아니신가요? <Text style={styles.signupLink}>회원가입하기</Text>
