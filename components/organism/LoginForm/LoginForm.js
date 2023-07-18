@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import { useState } from "react";
 
 import { useForm } from "hooks";
@@ -51,7 +51,11 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                 disabled={isLoading}
                 onPress={handlePressSubmit}
             >
-                <Text style={styles.buttonText}>{submitText}</Text>
+                {isLoading ? (
+                    <ActivityIndicator size="large" color="gray" />
+                ) : (
+                    <Text style={styles.buttonText}>{submitText}</Text>
+                )}
             </TouchableOpacity>
             <Text style={styles.signupText}>
                 회원이 아니신가요? <Text style={styles.signupLink}>회원가입하기</Text>
