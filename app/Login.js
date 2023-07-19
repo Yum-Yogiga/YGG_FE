@@ -1,5 +1,7 @@
 import { LoginForm } from "organism";
-import { styled } from "styled-components";
+import { styled } from "styled-components/native";
+
+import { signIn } from "api";
 
 export default function Login() {
     const logo = require("assets/orange.png");
@@ -21,8 +23,8 @@ export default function Login() {
         },
     ];
 
-    const handleSubmit = () => {
-        console.warn("제출함");
+    const handleSubmit = async (value) => {
+        const response = await signIn(value).then((res) => JSON.stringify(res));
     };
 
     return (
