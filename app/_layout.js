@@ -1,7 +1,10 @@
 import { useRouter } from "expo-router";
 import { ThemeProvider, DefaultTheme } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router/stack";
 import { AntDesign } from "@expo/vector-icons";
+
+import { StatusBar, Platform } from "react-native";
 
 const MyTheme = {
     ...DefaultTheme,
@@ -15,28 +18,34 @@ const MyTheme = {
 
 export default function Layout() {
     const router = useRouter();
+
+    const StatusBarHeight = Platform.OS === "ios" ? 0 : StatusBar.currentHeight;
+
     return (
         <ThemeProvider value={MyTheme}>
-            <Stack
-                screenOptions={{
-                    headerStyle: {
-                        backgroundColor: "white",
-                    },
-                    headerLeft: () => (
-                        <AntDesign
-                            name="left"
-                            size={24}
-                            color="black"
-                            onPress={() => {
-                                router.back();
-                            }}
-                        />
-                    ),
-                    title: null,
-                }}
-            >
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-            </Stack>
+            <StatusBar backgroundColor="#FE6E00" />
+            <SafeAreaProvider style={{ paddingTop: StatusBarHeight }}>
+                <Stack
+                    screenOptions={{
+                        headerStyle: {
+                            backgroundColor: "white",
+                        },
+                        headerLeft: () => (
+                            <AntDesign
+                                name="left"
+                                size={24}
+                                color="black"
+                                onPress={() => {
+                                    router.back();
+                                }}
+                            />
+                        ),
+                        title: null,
+                    }}
+                >
+                    <Stack.Screen name="index" options={{ headerShown: false }} />
+                </Stack>
+            </SafeAreaProvider>
         </ThemeProvider>
     );
 }
