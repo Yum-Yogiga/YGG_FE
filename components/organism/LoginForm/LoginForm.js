@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "rea
 import { useState } from "react";
 
 import { useForm } from "hooks";
-import { FormInput } from "molecule";
+import { FormTextInput } from "molecule";
 
 export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoErrorDisplay = false, ...props }) => {
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm(formData, onSubmit);
@@ -24,7 +24,7 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
         <View style={styles.container} {...props}>
             <View style={styles.formBody}>
                 {formData.map(({ name }, index) => (
-                    <FormInput
+                    <FormTextInput
                         style={getInputStyle(index)}
                         key={name}
                         placeholder={name}
