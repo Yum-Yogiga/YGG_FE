@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import { useState } from "react";
+import { EvilIcons } from "@expo/vector-icons";
 
 import { useForm } from "hooks";
 import { FormTextInput } from "molecule";
@@ -20,18 +21,32 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
         return formInputStyle;
     };
 
+    const getIconShape = (name) => {
+        switch (name) {
+            case "userId":
+            case "nickname":
+                return "user";
+            case "password":
+                return "lock";
+        }
+    };
+
     return (
         <View style={styles.container} {...props}>
             <View style={styles.formBody}>
                 {formData.map(({ name }, index) => (
-                    <FormTextInput
-                        style={getInputStyle(index)}
-                        key={name}
-                        placeholder={name}
-                        value={values[name]}
-                        error={showError && errors[name]}
-                        onChangeText={handleChange(name)}
-                    />
+                    <View key={name} style={getInputStyle(index)}>
+                        <View style={styles.icon}>
+                            <EvilIcons name={getIconShape(name)} size={32} color="black" />
+                        </View>
+                        <FormTextInput
+                            style={styles.textInput}
+                            placeholder={name}
+                            value={values[name]}
+                            error={showError && errors[name]}
+                            onChangeText={handleChange(name)}
+                        />
+                    </View>
                 ))}
             </View>
             <View style={styles.errorMessageView}>
@@ -78,6 +93,9 @@ const styles = StyleSheet.create({
     formInput: {
         width: 318,
         height: 52,
+        padding: 10,
+        flexDirection: "row",
+        alignItems: "center",
         borderWidth: 1,
         borderBottomWidth: 0,
         borderColor: "#D9D9D9",
@@ -91,6 +109,17 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomLeftRadius: 8,
         borderBottomRightRadius: 8,
+    },
+    icon: {
+        width: 32,
+        height: 32,
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        alignSelf: "center",
+    },
+    textInput: {
+        flex: 1,
     },
     errorMessageView: {
         marginVertical: 6,
