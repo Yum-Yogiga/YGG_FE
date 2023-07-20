@@ -66,7 +66,6 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         width: 320,
         justifyContent: "center",
     },

@@ -14,3 +14,18 @@ export const signUp = async ({ userId, password, email, nickname }) => {
         console.error("회원가입 API 오류");
     }
 };
+
+export const signIn = async ({ userId, password }) => {
+    const signInInfo = { userId, password };
+
+    try {
+        const { token, refreshToken } = await request("sign-in", {
+            method: "POST",
+            mode: "cors",
+            body: JSON.stringify(signInInfo),
+        });
+        return { token, refreshToken };
+    } catch (e) {
+        console.error("로그인 API 오류");
+    }
+};

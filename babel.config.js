@@ -12,7 +12,8 @@ module.exports = function (api) {
                         "atom": "./components/atom",
                         "molecule": "./components/molecule",
                         "organism": "./components/organism",
-                        "hooks": "./hooks"
+                        "hooks": "./hooks",
+                        "assets": "./assets"
                     },
                 },
             ],
