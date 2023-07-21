@@ -4,7 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router/stack";
 import { AntDesign } from "@expo/vector-icons";
 
-import { StatusBar, Platform } from "react-native";
+import { StatusBar } from "react-native";
 
 const MyTheme = {
     ...DefaultTheme,
@@ -19,12 +19,10 @@ const MyTheme = {
 export default function Layout() {
     const router = useRouter();
 
-    const StatusBarHeight = Platform.OS === "ios" ? 0 : StatusBar.currentHeight;
-
     return (
         <ThemeProvider value={MyTheme}>
-            <StatusBar backgroundColor="#FE6E00" />
-            <SafeAreaProvider style={{ paddingTop: StatusBarHeight }}>
+            <SafeAreaProvider>
+                <StatusBar backgroundColor="#FE6E00" />
                 <Stack
                     screenOptions={{
                         headerStyle: {
@@ -44,6 +42,7 @@ export default function Layout() {
                     }}
                 >
                     <Stack.Screen name="index" options={{ headerShown: false }} />
+                    <Stack.Screen name="Login" options={{ headerShown: false }} />
                 </Stack>
             </SafeAreaProvider>
         </ThemeProvider>

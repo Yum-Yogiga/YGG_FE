@@ -6,7 +6,7 @@ export function useForm(formEntry, onSubmit) {
     const validationCheck = {};
 
     formEntry.forEach(({ name, value, validation }) => {
-        initialValues[name] = value;
+        initialValues[name] = value ? value : "";
         initialErrors[name] = "";
         validationCheck[name] = validation;
     });

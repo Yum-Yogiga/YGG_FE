@@ -2,6 +2,7 @@ import { LoginForm } from "organism";
 import { styled } from "styled-components/native";
 
 import { signIn } from "api";
+import { KeyboardAvoidingView } from "react-native";
 
 export default function Login() {
     const logo = require("assets/orange.png");
@@ -9,14 +10,14 @@ export default function Login() {
     const formData = [
         {
             name: "userId",
-            value: "",
+            placeholder: "ID",
             validation: (value) => {
                 return "";
             },
         },
         {
             name: "password",
-            value: "",
+            placeholder: "비밀번호",
             validation: (value) => {
                 return "";
             },
@@ -28,10 +29,12 @@ export default function Login() {
     };
 
     return (
-        <Container>
-            <Logo source={logo} />
-            <LoginForm formData={formData} onSubmit={handleSubmit} />
-        </Container>
+        <KeyboardAvoidingView behavior="position">
+            <Container>
+                <Logo source={logo} />
+                <LoginForm formData={formData} onSubmit={handleSubmit} />
+            </Container>
+        </KeyboardAvoidingView>
     );
 }
 
