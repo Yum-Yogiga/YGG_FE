@@ -34,14 +34,14 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
     return (
         <View style={styles.container} {...props}>
             <View style={styles.formBody}>
-                {formData.map(({ name }, index) => (
+                {formData.map(({ name, placeholder }, index) => (
                     <View key={name} style={getInputStyle(index)}>
                         <View style={styles.icon}>
                             <EvilIcons name={getIconShape(name)} size={32} color="black" />
                         </View>
                         <FormTextInput
                             style={styles.textInput}
-                            placeholder={name}
+                            placeholder={placeholder}
                             value={values[name]}
                             error={showError && errors[name]}
                             onChangeText={handleChange(name)}
