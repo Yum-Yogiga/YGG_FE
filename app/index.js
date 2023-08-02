@@ -1,11 +1,7 @@
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 export default function App() {
-    return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.contentContainer}></ScrollView>
-        </SafeAreaView>
-    );
+    return <SafeAreaView style={styles.container}>First Page</SafeAreaView>;
 }
 
 const styles = StyleSheet.create({
@@ -14,8 +10,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-    },
-    contentContainer: {
-        paddingVertical: 30,
     },
 });
