@@ -1,13 +1,23 @@
 import { Animated } from "react-native";
 import styled from "styled-components/native";
 
-export const Option = ({ name, size, onPress, isSelected = false, tintable = true, ...props }) => {
+import { iconPath } from "assets/imagePath";
+
+export const Option = ({
+    name,
+    size,
+    onPress,
+    iconSrc = "assets/icon.png",
+    isSelected = false,
+    tintable = true,
+    ...props
+}) => {
     const animated = new Animated.Value(1);
 
     const fadeIn = () => {
         Animated.timing(animated, {
             toValue: 0.3,
-            duration: 100,
+            duration: 50,
             useNativeDriver: true,
         }).start();
     };
@@ -15,7 +25,7 @@ export const Option = ({ name, size, onPress, isSelected = false, tintable = tru
     const fadeOut = () => {
         Animated.timing(animated, {
             toValue: 1,
-            duration: 200,
+            duration: 50,
             useNativeDriver: true,
         }).start();
     };
@@ -34,7 +44,7 @@ export const Option = ({ name, size, onPress, isSelected = false, tintable = tru
                 <>
                     <Icon
                         size={size}
-                        source={require("assets/dollarCoin.png")}
+                        source={iconPath[iconSrc]}
                         style={{ tintColor: tintable && isSelected ? "#FFAF42" : "black" }}
                     />
                     <NameText size={size}>{name}</NameText>
