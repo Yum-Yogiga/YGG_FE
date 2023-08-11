@@ -10,16 +10,21 @@ export const DistanceInput = () => {
     const [isMin, setIsMin] = useState(value - step <= minValue);
     const [isMax, setIsMax] = useState(value + step >= maxValue);
 
+    const handleChangeValue = (newValue) => {
+        if (newValue >= minValue && newValue <= maxValue) {
+            setValue(newValue);
+            const newIsMin = newValue - step < minValue;
+            const newIsMax = newValue + step > maxValue;
+            setIsMin(newIsMin);
+            setIsMax(newIsMax);
+        }
+    };
     const handlePressDecrease = () => {
-        if (value - step >= minValue) setValue(value - step);
-        if (value - step < minValue) setIsMin(true);
-        if (value + step < maxValue) setIsMax(false);
+        handleChangeValue(value - step);
     };
 
     const handlePressIncrease = () => {
-        if (value + step <= maxValue) setValue(value + step);
-        if (value + step > maxValue) setIsMax(true);
-        if (value - step > minValue) setIsMin(false);
+        handleChangeValue(value + step);
     };
 
     return (
@@ -27,9 +32,10 @@ export const DistanceInput = () => {
             <ControlButton disabled={isMin} onPress={handlePressDecrease}>
                 <Entypo name="minus" size={28} color="white" />
             </ControlButton>
-            <ValueDisplay>
-                <ValueText>{value}km</ValueText>
-            </ValueDisplay>
+            <DistanceDisplay>
+                <DistanceText>{value}km</DistanceText>
+                <TimeText>*약 {Math.round(value / 0.06)}분 소요</TimeText>
+            </DistanceDisplay>
             <ControlButton disabled={isMax} onPress={handlePressIncrease}>
                 <Entypo name="plus" size={28} color="white" />
             </ControlButton>
@@ -52,7 +58,7 @@ const ControlButton = styled.TouchableOpacity`
     background-color: ${({ disabled }) => (disabled ? "#a9a9a9" : "#ffaf42")};
 `;
 
-const ValueDisplay = styled.View`
+const DistanceDisplay = styled.View`
     flex-direction: column;
     width: 200px;
     height: 56px;
@@ -60,6 +66,12 @@ const ValueDisplay = styled.View`
     align-items: center;
 `;
 
-const ValueText = styled.Text`
+const DistanceText = styled.Text`
+    padding-top: 12px;
     font-size: 22px;
+`;
+
+const TimeText = styled.Text`
+    font-size: 12px;
+    color: #fe6e00;
 `;
