@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { DistanceInput } from "../components/molecule/DistanceInput";
 import { styled } from "styled-components/native";
 import { IconSelectInput } from "../components/molecule/IconSelectInput/IconSelectInput";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function OptionSelect() {
     return (
@@ -20,15 +21,33 @@ export default function OptionSelect() {
                     <IconSelectInput entrySetName="waiting" iconSize={56} onChange={() => true} error={""} />
                 </View>
             </>
+            <NextPageButton
+                onPress={() => {
+                    console.log("TEST");
+                }}
+            >
+                <MaterialIcons name="navigate-next" size={64} color="white" />
+            </NextPageButton>
         </Container>
     );
 }
 
 const Container = styled.View`
     flex: 1;
+    align-items: center;
 `;
 
 const Label = styled.Text`
     font-size: 24px;
     text-align: center;
+`;
+
+const NextPageButton = styled.TouchableOpacity`
+    margin-top: 8px;
+    width: 72px;
+    height: 72px;
+    border-radius: 36px;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffaf42;
 `;
