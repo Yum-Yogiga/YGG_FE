@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { styled } from "styled-components/native";
 
-export const DistanceInput = () => {
-    const [value, setValue] = useState(0.5);
+export const DistanceInput = ({ value, onChange }) => {
     const step = 0.5;
     const minValue = 0.5;
     const maxValue = 2.0;
@@ -12,7 +11,7 @@ export const DistanceInput = () => {
 
     const handleChangeValue = (newValue) => {
         if (newValue >= minValue && newValue <= maxValue) {
-            setValue(newValue);
+            onChange(newValue);
             const newIsMin = newValue - step < minValue;
             const newIsMax = newValue + step > maxValue;
             setIsMin(newIsMin);
