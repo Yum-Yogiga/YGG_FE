@@ -42,7 +42,7 @@ const EntrySets = {
 export const IconSelectInput = ({
     entrySetName = "",
     entry = [],
-    iconSize = 80,
+    iconSize = 56,
     value = "",
     onChange,
     error,
@@ -52,12 +52,12 @@ export const IconSelectInput = ({
     const entryInfo = EntrySets[entrySetName] ? EntrySets[entrySetName] : entry;
 
     return (
-        <Container {...props}>
-            <Title>가격대</Title>
+        <Container style={style} {...props}>
             <OptionList>
                 {entryInfo.map(({ name, optionValue, icon }, index) => {
                     return (
                         <Option
+                            style={{ paddingHorizontal: 56 }}
                             key={index}
                             name={name}
                             size={iconSize}
@@ -70,31 +70,23 @@ export const IconSelectInput = ({
                     );
                 })}
             </OptionList>
-            <ErrorList>*{error}</ErrorList>
+            <ErrorDisplay>{error.length > 0 ? `*${error}` : " "}</ErrorDisplay>
         </Container>
     );
 };
 
 const Container = styled.View`
     flex-direction: column;
-    width: 100%;
-`;
-
-const Title = styled.Text`
-    padding: 8px 0px;
-    font-size: 28px;
-    text-align: center;
 `;
 
 const OptionList = styled.View`
-    padding: 0px 10%;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 `;
 
-const ErrorList = styled.Text`
-    padding: 6px 0px;
-    text-align: center;
+const ErrorDisplay = styled.Text`
+    margin-top: 6px;
     font-size: 12px;
+    text-align: center;
     color: red;
 `;
