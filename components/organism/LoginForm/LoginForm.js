@@ -28,6 +28,8 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                 return "user";
             case "password":
                 return "lock";
+            case "password_verification":
+                return "lock";
         }
     };
 
