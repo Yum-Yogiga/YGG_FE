@@ -47,7 +47,7 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                             value={values[name]}
                             error={showError && errors[name]}
                             onChangeText={handleChange(name)}
-                            secureTextEntry={name == "password"}
+                            secureTextEntry={name === "password" || name === "password_verification"}
                         />
                     </View>
                 ))}
