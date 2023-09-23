@@ -31,7 +31,8 @@ export default function Signup() {
         {
             name: "password_verification",
             placeholder: "비밀번호 확인",
-            validation: (value) => {
+            validation: (password, changedValue) => {
+                if (password !== changedValue) return "비밀번호와 비밀번호 재확인이 일치하지 않습니다";
                 return "";
             },
         },
