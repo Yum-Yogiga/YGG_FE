@@ -33,6 +33,9 @@ export default function Login() {
             <Container>
                 <Logo source={logo} />
                 <LoginForm formData={formData} onSubmit={handleSubmit} />
+                <SignupText>
+                    회원이 아니신가요? <SignupLink>회원가입하기</SignupLink>
+                </SignupText>
             </Container>
         </KeyboardAvoidingView>
     );
@@ -47,4 +50,13 @@ const Logo = styled.Image.attrs({
 })`
     max-width: 100%;
     height: 320px;
+`;
+
+const SignupText = styled.Text`
+    margin: 6px 0;
+    text-align: center;
+`;
+
+const SignupLink = styled.Text`
+    color: "#FF8303";
 `;
