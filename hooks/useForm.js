@@ -16,8 +16,12 @@ export function useForm(formEntry, onSubmit) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (name) => (changedValue) => {
-        const errorMessage = validationCheck[name](changedValue);
-
+        let errorMessage = "";
+        if (name === "password_verification") {
+            errorMessage = validationCheck["password_verification"](values["password"], changedValue);
+        } else {
+            errorMessage = validationCheck[name](changedValue);
+        }
         setErrors({
             ...errors,
             [name]: errorMessage,

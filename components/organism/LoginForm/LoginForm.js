@@ -28,6 +28,8 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                 return "user";
             case "password":
                 return "lock";
+            case "password_verification":
+                return "lock";
         }
     };
 
@@ -45,7 +47,7 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                             value={values[name]}
                             error={showError && errors[name]}
                             onChangeText={handleChange(name)}
-                            secureTextEntry={name == "password"}
+                            secureTextEntry={name === "password" || name === "password_verification"}
                         />
                     </View>
                 ))}
@@ -73,9 +75,6 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                     <Text style={styles.buttonText}>{submitText}</Text>
                 )}
             </TouchableOpacity>
-            <Text style={styles.signupText}>
-                회원이 아니신가요? <Text style={styles.signupLink}>회원가입하기</Text>
-            </Text>
         </View>
     );
 };
@@ -143,12 +142,5 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: "white",
-    },
-    signupText: {
-        marginVertical: 6,
-        textAlign: "center",
-    },
-    signupLink: {
-        color: "#FF8303",
     },
 });
