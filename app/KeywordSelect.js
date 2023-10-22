@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { IconSelectInput } from "molecule/IconSelectInput/IconSelectInput";
 import { styled } from "styled-components/native";
+import { MultiIconSelectInput } from "molecule";
 
 const dummyOptions = [
     {
@@ -53,14 +53,27 @@ const dummyOptions = [
 ];
 
 export default function KeywordSelect() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState([]);
 
     const handlePressSubmit = () => {};
+
+    const handleChange = (selectedValue) => {
+        const index = value.indexOf(selectedValue);
+        const newValue = [...value];
+
+        if (index === -1) {
+            newValue.push(selectedValue);
+        } else {
+            newValue.splice(index, 1);
+        }
+
+        setValue(newValue);
+    };
 
     return (
         <Container>
             <Label>키워드 선택</Label>
-            <IconSelectInput entry={dummyOptions} iconSize={72} value={value} onChange={setValue} />
+            <MultiIconSelectInput entry={dummyOptions} iconSize={72} value={value} onChange={handleChange} />
             <FormCompleteButton onPress={handlePressSubmit}>
                 <MaterialIcons name="check" size={64} color="white" />
             </FormCompleteButton>
