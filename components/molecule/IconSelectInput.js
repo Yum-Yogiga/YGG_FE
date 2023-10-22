@@ -1,7 +1,6 @@
 import { styled } from "styled-components/native";
 
 import { Option } from "./Option";
-import { Text } from "react-native";
 
 const EntrySets = {
     price: [

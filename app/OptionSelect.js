@@ -1,11 +1,10 @@
-import { View, Text } from "react-native";
-import { DistanceInput } from "../components/molecule/DistanceInput";
+import { View } from "react-native";
 import { styled } from "styled-components/native";
-import { IconSelectInput } from "../components/molecule/IconSelectInput/IconSelectInput";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 
 import { useForm } from "hooks";
+import { DistanceInput, IconSelectInput } from "molecule";
 
 export default function OptionSelect() {
     const formData = [
