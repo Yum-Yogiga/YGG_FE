@@ -16,7 +16,6 @@ const Container = styled.View`
     width: 100%;
     height: 72px;
     flex-direction: row;
-    border: 1px solid black;
 `;
 
 const TitleContainer = styled.View`
