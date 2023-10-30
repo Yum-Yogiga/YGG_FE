@@ -46,6 +46,7 @@ const TitleLine = styled.View`
     padding-bottom: 4px;
     width: 100%;
     flex-direction: row;
+    align-items: center;
 `;
 
 const Icon = styled.View`

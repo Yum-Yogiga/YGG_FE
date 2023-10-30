@@ -19,7 +19,7 @@ const getIcon = (name, props) => {
     return Icon;
 };
 
-export function InfoIcon({ name = "address", spaceSize = 20, size = 16, color = "#9d9d9d", ...props }) {
+export function InfoIcon({ name = "address", spaceSize = 24, size = 18, color = "#9d9d9d", ...props }) {
     const prop = { size: size, color: color, ...props };
     const Icon = getIcon(name, prop);
     return <Container size={spaceSize}>{Icon}</Container>;
