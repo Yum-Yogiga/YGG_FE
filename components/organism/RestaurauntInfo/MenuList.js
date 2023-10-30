@@ -1,5 +1,5 @@
 import { styled } from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
+import { InfoIcon } from "./InfoIcon";
 
 export function MenuList({
     menuList = [
@@ -20,9 +20,7 @@ export function MenuList({
     return (
         <Container>
             <TitleLine>
-                <Icon>
-                    <Ionicons name="restaurant" size={16} color="#9D9D9D" />
-                </Icon>
+                <InfoIcon name="menulist" />
                 <Title>메뉴정보</Title>
             </TitleLine>
             {menuList.length < 0 ? (
@@ -31,7 +29,7 @@ export function MenuList({
                 menuList.map(({ name, price }, index) => (
                     <MenuLine key={index}>
                         <MenuName>{name}</MenuName>
-                        <MenuPrice>{price}</MenuPrice>
+                        <MenuPrice>{price} 원</MenuPrice>
                     </MenuLine>
                 ))
             )}

@@ -1,12 +1,13 @@
 import { styled } from "styled-components/native";
-import { Octicons } from "@expo/vector-icons";
+
+import { InfoIcon } from "./InfoIcon";
 
 export function Address({ address = "대충 주소 들어가는 자리" }) {
     return (
         <Container>
-            <Icon>
-                <Octicons name="location" size={20} color="#9D9D9D" />
-            </Icon>
+            <IconSpace>
+                <InfoIcon name="address" style={{ paddingTop: 3 }} />
+            </IconSpace>
             <Content numberOfLines={2}>{address}</Content>
         </Container>
     );
@@ -15,12 +16,11 @@ export function Address({ address = "대충 주소 들어가는 자리" }) {
 const Container = styled.View`
     width: 100%;
     flex-direction: row;
+    align-items: center;
 `;
 
-const Icon = styled.View`
-    padding-top: 1px;
-    padding-right: 6px;
-    align-items: center;
+const IconSpace = styled.View`
+    height: 100%;
 `;
 
 const Content = styled.Text`
