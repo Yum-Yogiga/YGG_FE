@@ -21,7 +21,6 @@ const Container = styled.View`
     padding: 8px 0px;
     width: 100%;
     flex-direction: row;
-    border: 1px solid black;
 `;
 
 const TitleContainer = styled.View`
