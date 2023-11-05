@@ -50,8 +50,12 @@ export function ButtonPanel({
 }
 
 const Container = styled.View`
+    flex-grow: 1;
+    max-height: 150px;
     width: 100%;
     flex-direction: column;
+    justify-content: flex-end;
+    background-color: white;
 `;
 
 const ButtonsContainer = styled.View`

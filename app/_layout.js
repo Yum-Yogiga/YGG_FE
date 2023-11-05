@@ -43,6 +43,8 @@ export default function Layout() {
                 >
                     <Stack.Screen name="index" options={{ headerShown: false }} />
                     <Stack.Screen name="Login" options={{ headerShown: false }} />
+                    <Stack.Screen name="Signup" options={{ headerShown: true }} />
+                    <Stack.Screen name="RestaurauntInfo" options={{ headerShown: false }} />
                 </Stack>
             </SafeAreaProvider>
         </ThemeProvider>

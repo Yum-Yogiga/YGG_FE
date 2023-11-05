@@ -15,8 +15,8 @@ export function Address({ address = "대충 주소 들어가는 자리" }) {
 
 const Container = styled.View`
     width: 100%;
+    height: 48px;
     flex-direction: row;
-    align-items: center;
 `;
 
 const IconSpace = styled.View`

@@ -18,8 +18,10 @@ export function TitleLine({
 }
 
 const Container = styled.View`
+    height: 72px;
     width: 100%;
     flex-direction: row;
+    align-items: center;
 `;
 
 const TitleContainer = styled.View`

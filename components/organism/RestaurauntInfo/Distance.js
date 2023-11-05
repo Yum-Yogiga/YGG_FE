@@ -17,6 +17,7 @@ export function Distance({ distance }) {
 
 const Container = styled.View`
     width: 100%;
+    height: 48px;
     flex-direction: row;
     align-items: center;
 `;
