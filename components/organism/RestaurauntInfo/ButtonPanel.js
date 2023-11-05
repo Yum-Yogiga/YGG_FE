@@ -8,39 +8,60 @@ import RerollButtonIcon from "assets/RestInfoRerollButton.js";
 export function ButtonPanel({
     showLeftButton = true,
     showRightButton = true,
-    showRerollButton = false,
+    showRerollButton = true,
     handleLeftButtonTouch = () => {},
     handleRightButtonTouch = () => {},
     handleOkButtonTouch = () => {},
     handleRerollButtonTouch = () => {},
+    currentPage = 5,
+    totalPage = 10,
 }) {
     return (
         <Container>
-            {showLeftButton && (
-                <MoveAsideButton onPress={handleLeftButtonTouch}>
-                    <LeftButtonIcon width={36} height={36} />
-                </MoveAsideButton>
-            )}
-            <MainButtonSpace>
-                <OkButton onPress={handleOkButtonTouch}>
-                    <OkButtonIcon width={48} height={48} />
-                </OkButton>
-                {showRerollButton && (
-                    <RerollButton onPress={handleRerollButtonTouch}>
-                        <RerollButtonIcon width={48} height={48} />
-                    </RerollButton>
+            <ButtonsContainer>
+                {showLeftButton && (
+                    <MoveAsideButton onPress={handleLeftButtonTouch}>
+                        <LeftButtonIcon width={40} height={40} />
+                    </MoveAsideButton>
                 )}
-            </MainButtonSpace>
-            {showRightButton && (
-                <MoveAsideButton onPress={handleRightButtonTouch}>
-                    <RightButtonIcon width={36} height={36} />
-                </MoveAsideButton>
-            )}
+                <MainButtonSpace>
+                    <OkButton onPress={handleOkButtonTouch}>
+                        <OkButtonIcon width={48} height={48} />
+                    </OkButton>
+                    {showRerollButton && (
+                        <RerollButton onPress={handleRerollButtonTouch}>
+                            <RerollButtonIcon width={52} height={52} />
+                        </RerollButton>
+                    )}
+                </MainButtonSpace>
+                {showRightButton && (
+                    <MoveAsideButton onPress={handleRightButtonTouch}>
+                        <RightButtonIcon width={40} height={40} />
+                    </MoveAsideButton>
+                )}
+            </ButtonsContainer>
+            <PageCountLine>
+                <PageCount>
+                    {currentPage} / {totalPage}
+                </PageCount>
+            </PageCountLine>
         </Container>
     );
 }
 
 const Container = styled.View`
+    width: 100%;
+    flex-direction: column;
+`;
+
+const ButtonsContainer = styled.View`
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`;
+
+const PageCountLine = styled.View`
     width: 100%;
     flex-direction: row;
     align-items: center;
@@ -48,9 +69,11 @@ const Container = styled.View`
 `;
 
 const MainButtonSpace = styled.View`
+    width: 50%;
     flex-direction: row;
+
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 `;
 
 const OkButton = styled.TouchableOpacity`
@@ -70,7 +93,12 @@ const RerollButton = styled.TouchableOpacity`
 const MoveAsideButton = styled.TouchableOpacity`
     width: 40px;
     height: 40px;
-    border-radius: 20px;
     align-items: center;
     justify-content: center;
+`;
+
+const PageCount = styled.Text`
+    padding: 4px;
+    text-align: center;
+    font-size: 16px;
 `;
