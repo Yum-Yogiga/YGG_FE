@@ -39,37 +39,50 @@ const EntrySets = {
     ],
 };
 
-export const IconSelectInput = ({
+export const MultiIconSelectInput = ({
     entrySetName = "",
     entry = [],
     iconSize = 56,
-    value = "",
+    rowSize = 3,
+    value = [],
     onChange,
-    error,
+    error = "",
     style,
     ...props
 }) => {
     const entryInfo = EntrySets[entrySetName] ? EntrySets[entrySetName] : entry;
+    const entrySize = entryInfo.length;
+    const rowNum = Math.floor(entrySize / rowSize);
+    const optionInfo = [];
 
-    return (
-        <Container style={style} {...props}>
-            <OptionList>
-                {entryInfo.map(({ name, optionValue, icon }, index) => {
+    for (let i = 0; i < rowNum; i++) {
+        const rowStart = i * rowSize;
+        const rowEnd = entrySize > rowStart + rowSize ? rowStart + rowSize : entrySize;
+
+        optionInfo.push(
+            <OptionRow key={i}>
+                {entryInfo.slice(rowStart, rowEnd).map(({ name, optionValue, icon }, index) => {
                     return (
                         <Option
-                            style={{ paddingHorizontal: 56 }}
-                            key={index}
+                            style={{ paddingHorizontal: iconSize }}
+                            key={rowStart + index}
                             name={name}
                             size={iconSize}
                             iconSrc={icon}
                             onPress={() => {
                                 onChange(optionValue);
                             }}
-                            isSelected={value === optionValue}
+                            isSelected={value.indexOf(optionValue) !== -1}
                         />
                     );
                 })}
-            </OptionList>
+            </OptionRow>
+        );
+    }
+
+    return (
+        <Container style={style} {...props}>
+            <OptionList>{optionInfo}</OptionList>
             <ErrorDisplay>{error.length > 0 ? `*${error}` : " "}</ErrorDisplay>
         </Container>
     );
@@ -80,8 +93,16 @@ const Container = styled.View`
 `;
 
 const OptionList = styled.View`
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+`;
+
+const OptionRow = styled.View`
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 32px;
 `;
 
 const ErrorDisplay = styled.Text`
