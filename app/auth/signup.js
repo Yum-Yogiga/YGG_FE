@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { styled } from "styled-components/native";
 import { KeyboardAvoidingView } from "react-native";
 
 import { LoginForm } from "organism";
 
 export default function Signup() {
-    const logo = require("assets/orange.png");
+    const logo = require("assets/logo.png");
 
-    const formData = [
+    const [showEmailVerif, setShowEmailVerif] = useState(false);
+
+    const signupFormData = [
         {
             name: "userId",
             placeholder: "ID",
@@ -38,13 +41,39 @@ export default function Signup() {
         },
     ];
 
-    const handleSubmit = async () => {};
+    const emailVerifFormData = [
+        {
+            name: "email",
+            placeholder: "이메일주소",
+            validation: (value) => {
+                return "";
+            },
+        },
+        {
+            name: "verification code",
+            placeholder: "인증 코드",
+            validation: (value) => {
+                return "";
+            },
+        },
+    ];
+
+    const handleSubmit = async () => {
+        setShowEmailVerif(!showEmailVerif);
+    };
 
     return (
         <KeyboardAvoidingView behavior="position">
             <Container>
-                <Logo source={logo} />
-                <LoginForm formData={formData} onSubmit={handleSubmit} />
+                <LogoSpace>
+                    <Logo source={logo} />
+                </LogoSpace>
+                {showEmailVerif || (
+                    <LoginForm formData={signupFormData} onSubmit={handleSubmit} submitText="이메인 인증" />
+                )}
+                {showEmailVerif && (
+                    <LoginForm formData={emailVerifFormData} onSubmit={handleSubmit} submitText="인증 완료" />
+                )}
             </Container>
         </KeyboardAvoidingView>
     );
@@ -54,9 +83,15 @@ const Container = styled.SafeAreaView`
     align-items: center;
 `;
 
+const LogoSpace = styled.View`
+    height: 250px;
+    justify-content: flex-end;
+    padding-bottom: 48px;
+`;
+
 const Logo = styled.Image.attrs({
     resizeMode: "center",
 })`
-    max-width: 100%;
-    height: 240px;
+    max-width: 70%;
+    height: 100px;
 `;

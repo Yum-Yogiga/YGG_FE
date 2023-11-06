@@ -1,5 +1,6 @@
 import { LoginForm } from "organism";
 import { styled } from "styled-components/native";
+import { Link } from "expo-router";
 
 import { signIn } from "api";
 import { KeyboardAvoidingView } from "react-native";
@@ -31,10 +32,12 @@ export default function Login() {
     return (
         <KeyboardAvoidingView behavior="position">
             <Container>
-                <Logo source={logo} />
+                <LogoSpace>
+                    <Logo source={logo} />
+                </LogoSpace>
                 <LoginForm formData={formData} onSubmit={handleSubmit} />
                 <SignupText>
-                    회원이 아니신가요? <SignupLink>회원가입하기</SignupLink>
+                    회원이 아니신가요? <SignupLink href="./signup">회원가입하기</SignupLink>
                 </SignupText>
             </Container>
         </KeyboardAvoidingView>
@@ -45,11 +48,17 @@ const Container = styled.SafeAreaView`
     align-items: center;
 `;
 
+const LogoSpace = styled.View`
+    height: 350px;
+    justify-content: flex-end;
+    padding-bottom: 48px;
+`;
+
 const Logo = styled.Image.attrs({
     resizeMode: "center",
 })`
-    max-width: 100%;
-    height: 320px;
+    max-width: 70%;
+    height: 100px;
 `;
 
 const SignupText = styled.Text`
@@ -57,6 +66,6 @@ const SignupText = styled.Text`
     text-align: center;
 `;
 
-const SignupLink = styled.Text`
+const SignupLink = styled(Link)`
     color: #ff8303;
 `;
