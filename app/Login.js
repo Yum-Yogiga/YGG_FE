@@ -5,7 +5,7 @@ import { signIn } from "api";
 import { KeyboardAvoidingView } from "react-native";
 
 export default function Login() {
-    const logo = require("assets/orange.png");
+    const logo = require("assets/logo.png");
 
     const formData = [
         {
@@ -58,5 +58,5 @@ const SignupText = styled.Text`
 `;
 
 const SignupLink = styled.Text`
-    color: "#FF8303";
+    color: #ff8303;
 `;
