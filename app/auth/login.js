@@ -1,12 +1,14 @@
 import { LoginForm } from "organism";
 import { styled } from "styled-components/native";
-import { Link } from "expo-router";
+import { useRouter, Link } from "expo-router";
 
 import { signIn } from "api";
 import { KeyboardAvoidingView } from "react-native";
 
 export default function Login() {
     const logo = require("assets/logo.png");
+
+    const router = useRouter();
 
     const formData = [
         {
@@ -26,7 +28,10 @@ export default function Login() {
     ];
 
     const handleSubmit = async (value) => {
+        /*
         const response = await signIn(value).then((res) => JSON.stringify(res));
+        */
+        router.push("/optionselect");
     };
 
     return (

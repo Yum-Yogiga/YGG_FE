@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components/native";
-import { KeyboardAvoidingView } from "react-native";
+import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
 
 import { LoginForm } from "organism";
 
@@ -50,7 +50,7 @@ export default function Signup() {
             },
         },
         {
-            name: "verification code",
+            name: "verificationCode",
             placeholder: "인증 코드",
             validation: (value) => {
                 return "";
@@ -61,6 +61,8 @@ export default function Signup() {
     const handleSubmit = async () => {
         setShowEmailVerif(!showEmailVerif);
     };
+
+    const handleVerifSubmit = () => {};
 
     return (
         <KeyboardAvoidingView behavior="position">

@@ -4,6 +4,8 @@ import { Stack } from "expo-router/stack";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function Layout() {
+    const router = useRouter();
+
     return (
         <SafeAreaProvider>
             <Stack
@@ -17,7 +19,7 @@ export default function Layout() {
                             size={24}
                             color="black"
                             onPress={() => {
-                                router.back();
+                                router.push("/auth/login");
                             }}
                         />
                     ),

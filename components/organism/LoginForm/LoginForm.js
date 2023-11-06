@@ -23,12 +23,14 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
 
     const getIconShape = (name) => {
         switch (name) {
+            case "email":
             case "userId":
             case "nickname":
                 return "user";
             case "password":
-                return "lock";
             case "password_verification":
+                return "lock";
+            case "verification_code":
                 return "lock";
         }
     };
@@ -49,6 +51,11 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                             onChangeText={handleChange(name)}
                             secureTextEntry={name === "password" || name === "password_verification"}
                         />
+                        {name == "email" && (
+                            <TouchableOpacity style={styles.verifCodeSendButton}>
+                                <Text style={{ color: "#707070" }}>전송</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 ))}
             </View>
@@ -142,5 +149,14 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: "white",
+    },
+    verifCodeSendButton: {
+        height: 30,
+        width: 48,
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: "#d9d9d9",
+        alignItems: "center",
+        justifyContent: "center",
     },
 });
