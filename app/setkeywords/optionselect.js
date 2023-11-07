@@ -2,11 +2,14 @@ import { View } from "react-native";
 import { styled } from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
+import { useRouter } from "expo-router";
 
 import { useForm } from "hooks";
 import { DistanceInput, IconSelectInput } from "molecule";
 
 export default function OptionSelect() {
+    const router = useRouter();
+
     const formData = [
         {
             name: "distance",
@@ -41,6 +44,7 @@ export default function OptionSelect() {
     const handlePressSubmit = () => {
         if (!showError) setShowError(true);
         handleSubmit();
+        router.push("./keywordselect");
     };
 
     return (
@@ -81,6 +85,7 @@ export default function OptionSelect() {
 const Container = styled.View`
     flex: 1;
     align-items: center;
+    justify-content: center;
 `;
 
 const Label = styled.Text`

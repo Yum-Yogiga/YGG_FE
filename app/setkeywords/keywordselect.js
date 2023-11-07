@@ -4,6 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { styled } from "styled-components/native";
 import { MultiIconSelectInput } from "molecule";
 
+/*
 const dummyOptions = [
     {
         name: "키워드1",
@@ -51,6 +52,7 @@ const dummyOptions = [
         icon: "price_cheap",
     },
 ];
+*/
 
 export default function KeywordSelect() {
     const [value, setValue] = useState([]);
@@ -73,7 +75,7 @@ export default function KeywordSelect() {
     return (
         <Container>
             <Label>키워드 선택</Label>
-            <MultiIconSelectInput entry={dummyOptions} iconSize={72} value={value} onChange={handleChange} />
+            <MultiIconSelectInput entrySetName="dummy" iconSize={72} value={value} onChange={handleChange} />
             <FormCompleteButton onPress={handlePressSubmit}>
                 <MaterialIcons name="check" size={64} color="white" />
             </FormCompleteButton>
@@ -82,6 +84,7 @@ export default function KeywordSelect() {
 }
 
 const Container = styled.View`
+    padding-top: 50px;
     flex-direction: column;
     align-items: center;
 `;

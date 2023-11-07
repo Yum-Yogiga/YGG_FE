@@ -31,7 +31,7 @@ export default function Login() {
         /*
         const response = await signIn(value).then((res) => JSON.stringify(res));
         */
-        router.push("/optionselect");
+        router.push("/setkeywords/optionselect");
     };
 
     return (
