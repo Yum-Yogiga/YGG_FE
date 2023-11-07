@@ -44,7 +44,6 @@ export function useForm(formEntry, onSubmit) {
         if (hasError) {
         } else {
             onSubmit(values);
-            console.log("제출 완료");
         }
 
         setIsLoading(false);
