@@ -79,7 +79,7 @@ export default function KeywordSelect() {
 
     return (
         <Container>
-            <Label>키워드 선택</Label>
+            <Label>어울리는 키워드를 골라주세요!</Label>
             <MultiIconSelectInput entrySetName="dummy" iconSize={72} value={value} onChange={handleChange} />
             <FormCompleteButton onPress={handlePressSubmit}>
                 <MaterialIcons name="check" size={64} color="white" />
@@ -89,7 +89,7 @@ export default function KeywordSelect() {
 }
 
 const Container = styled.View`
-    padding-top: 50px;
+    padding-top: 30px;
     flex-direction: column;
     align-items: center;
 `;
