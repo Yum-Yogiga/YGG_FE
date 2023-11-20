@@ -13,7 +13,7 @@ export default function Login() {
     const formData = [
         {
             name: "userId",
-            placeholder: "ID", 
+            placeholder: "ID",
             validation: (value) => {
                 return "";
             },
@@ -22,16 +22,13 @@ export default function Login() {
             name: "password",
             placeholder: "비밀번호",
             validation: (value) => {
-                return ""; 
+                return "";
             },
         },
     ];
 
     const handleSubmit = async (value) => {
-        /*
         const response = await signIn(value).then((res) => JSON.stringify(res));
-        */
-        router.push("/setkeywords/optionselect");
     };
 
     return (
@@ -64,6 +61,8 @@ const Logo = styled.Image.attrs({
 })`
     max-width: 70%;
     height: 100px;
+    justify-content: center;
+    align-items: center;
 `;
 
 const SignupText = styled.Text`

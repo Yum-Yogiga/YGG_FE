@@ -41,7 +41,7 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                 {formData.map(({ name, placeholder }, index) => (
                     <View key={name} style={getInputStyle(index)}>
                         <View style={styles.icon}>
-                            <EvilIcons name={getIconShape(name)} size={32} color="black" />
+                            <EvilIcons name={getIconShape(name)} size={30} color="black" />
                         </View>
                         <FormTextInput
                             style={styles.textInput}
@@ -118,8 +118,9 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 8,
     },
     icon: {
-        width: 32,
-        height: 32,
+        width: 36,
+        height: 36,
+        paddingBottom: 4,
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
