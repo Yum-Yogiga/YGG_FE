@@ -17,11 +17,10 @@ const Container = styled.View`
     width: 100%;
     height: 48px;
     flex-direction: row;
+    align-items: center;
 `;
 
-const IconSpace = styled.View`
-    height: 100%;
-`;
+const IconSpace = styled.View``;
 
 const Content = styled.Text`
     font-size: 14px;

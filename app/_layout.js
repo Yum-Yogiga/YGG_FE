@@ -45,6 +45,7 @@ export default function Layout() {
                     <Stack.Screen name="auth" options={{ headerShown: false }} />
                     <Stack.Screen name="setkeywords" options={{ headerShown: false }} />
                     <Stack.Screen name="recommends" options={{ headerShown: false }} />
+                    <Stack.Screen name="waitingReview" options={{ headerShown: false }} />
                     <Stack.Screen name="[unknownpage]" options={{ headerShown: true }} />
                 </Stack>
             </SafeAreaProvider>

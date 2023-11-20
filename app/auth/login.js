@@ -13,7 +13,7 @@ export default function Login() {
     const formData = [
         {
             name: "userId",
-            placeholder: "ID",
+            placeholder: "ID", 
             validation: (value) => {
                 return "";
             },
@@ -22,7 +22,7 @@ export default function Login() {
             name: "password",
             placeholder: "비밀번호",
             validation: (value) => {
-                return "";
+                return ""; 
             },
         },
     ];
