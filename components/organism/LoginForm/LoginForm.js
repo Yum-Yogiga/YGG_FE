@@ -10,10 +10,10 @@ export const LoginForm = ({
     values,
     errors,
     handleChange,
-    placeholders,
-    isLoading,
+    isLoading = false,
     onSubmitButtonPress,
     submitText = "로그인",
+    showCancelButton = false,
     onCancelButtonPress,
     cancelText = "취소",
     displayError = "false",
@@ -50,10 +50,10 @@ export const LoginForm = ({
                         </IconSpace>
                         <TextInputLine
                             type={name}
-                            placeholder={placeholder}
                             value={values[name]}
                             error={displayError && errors[name].length > 0}
                             onChangeText={handleChange(name)}
+                            placeholder={placeholder}
                         />
                         {name == "email" && (
                             <VerifCodeSendButton>
@@ -71,25 +71,21 @@ export const LoginForm = ({
                     })}
             </ErrorMessageView>
             <ButtonSpace>
-                {onCancel && (
-                    <CancelButton style={isLoading && styles.disabledButton} disabled={isLoading}>
-                        {isLoading ? (
-                            <ActivityIndicator size="large" color="black" />
-                        ) : (
-                            <Text style={{ color: "black" }}>{cancelText}</Text>
-                        )}
-                    </CancelButton>
+                {isLoading ? (
+                    <ActivityIndicator size="large" color="gray" />
+                ) : (
+                    (
+                        showCancelButton && (
+                            <CancelButton onPress={onCancelButtonPress}>
+                                <Text style={{ color: "black" }}>{cancelText}</Text>
+                            </CancelButton>
+                        )
+                    )(
+                        <SubmitButton onPress={onSubmitButtonPress}>
+                            <Text style={{ color: "white" }}>{submitText}</Text>
+                        </SubmitButton>
+                    )
                 )}
-                <SubmitButton
-                    style={[onCancel && styles.submitButton2, isLoading && styles.disabledButton]}
-                    disabled={isLoading}
-                >
-                    {isLoading ? (
-                        <ActivityIndicator size="large" color="gray" />
-                    ) : (
-                        <Text style={{ color: "white" }}>{submitText}</Text>
-                    )}
-                </SubmitButton>
             </ButtonSpace>
         </Container>
     );
