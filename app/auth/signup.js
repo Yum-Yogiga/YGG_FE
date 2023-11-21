@@ -3,66 +3,72 @@ import { styled } from "styled-components/native";
 import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
 
 import { LoginForm } from "organism";
+import { useRouter } from "expo-router";
+
+const idFormData = [
+    {
+        name: "userId",
+        placeholder: "ID",
+        validation: (value) => {
+            return "";
+        },
+    },
+    {
+        name: "nickname",
+        placeholder: "닉네임",
+        validation: (value) => {
+            return "";
+        },
+    },
+    {
+        name: "password",
+        placeholder: "비밀번호",
+        validation: (value) => {
+            return "";
+        },
+    },
+    {
+        name: "password_verification",
+        placeholder: "비밀번호 확인",
+        validation: (password, changedValue) => {
+            if (password !== changedValue) return "비밀번호와 비밀번호 재확인이 일치하지 않습니다";
+            return "";
+        },
+    },
+];
 
 export default function Signup() {
     const logo = require("assets/logo.png");
+    const router = useRouter();
 
     const [showEmailVerif, setShowEmailVerif] = useState(false);
+    const [showIdFormError, setShowFirstFormError] = useState(false);
 
-    const signupFormData = [
-        {
-            name: "userId",
-            placeholder: "ID",
-            validation: (value) => {
-                return "";
-            },
-        },
-        {
-            name: "nickname",
-            placeholder: "닉네임",
-            validation: (value) => {
-                return "";
-            },
-        },
-        {
-            name: "password",
-            placeholder: "비밀번호",
-            validation: (value) => {
-                return "";
-            },
-        },
-        {
-            name: "password_verification",
-            placeholder: "비밀번호 확인",
-            validation: (password, changedValue) => {
-                if (password !== changedValue) return "비밀번호와 비밀번호 재확인이 일치하지 않습니다";
-                return "";
-            },
-        },
-    ];
-
-    const emailVerifFormData = [
-        {
-            name: "email",
-            placeholder: "이메일주소",
-            validation: (value) => {
-                return "";
-            },
-        },
-        {
-            name: "verificationCode",
-            placeholder: "인증 코드",
-            validation: (value) => {
-                return "";
-            },
-        },
-    ];
-
-    const handleSubmit = async () => {
-        setShowEmailVerif(!showEmailVerif);
+    const loginFunc = (values) => {
+        console.log(values);
     };
 
-    const handleVerifSubmit = () => {};
+    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(idFormData, loginFunc);
+
+    const handleGoNextFormButtonPress = () => {
+        setShowEmailVerif(true);
+    };
+
+    const handleCancelSignupButtonPress = () => {
+        router.push("/auth/login");
+    };
+
+    const handleVerifSubmit = () => {
+        console.log("인증 확인 모달");
+    };
+
+    const handleSignupButtonPress = () => {
+        handleSubmit();
+    };
+
+    const handleCancelEmailVerifButtonPress = () => {
+        setShowEmailVerif(false);
+    };
 
     return (
         <KeyboardAvoidingView behavior="position">
@@ -72,14 +78,18 @@ export default function Signup() {
                 </LogoSpace>
                 {showEmailVerif || (
                     <LoginForm
-                        formData={signupFormData}
-                        onSubmit={handleSubmit}
-                        onCancel={() => {}}
-                        submitText="이메인 인증"
+                        formData={idFormData}
+                        values={values}
+                        errors={errors}
+                        handleChange={handleChange}
+                        placeholders={placeholders}
+                        isLoading={isLoading}
+                        onSubmitButtonPress={handleGoNextFormButtonPress}
+                        submitText="이메일 인증"
+                        onCancelButtonPress={handleCancelSignupButtonPress}
+                        cancelText="취소"
+                        displayError={showIdFormError}
                     />
-                )}
-                {showEmailVerif && (
-                    <LoginForm formData={emailVerifFormData} onSubmit={handleSubmit} submitText="인증 완료" />
                 )}
             </Container>
         </KeyboardAvoidingView>
