@@ -1,6 +1,6 @@
 import { Text, StyleSheet, ActivityIndicator } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
-import { styled } from "styled-components/react";
+import { styled } from "styled-components/native";
 
 import { FormTextInput } from "molecule";
 
@@ -41,11 +41,11 @@ export const LoginForm = ({
 
     return (
         <Container {...props}>
-            <FormBody>
+            <FormBody style={styles.howdoimakeshadowjesus}>
                 {formData.map(({ name, placeholder }, index) => (
                     <FormInput key={name} style={getInputStyle(index)}>
                         <IconSpace>
-                            <EvilIcons name={getIconShape(name)} size={30} color="black" />
+                            <EvilIcons name={getIconShape(name)} size={36} color="black" />
                         </IconSpace>
                         <TextInputLine
                             type={name}
@@ -73,17 +73,19 @@ export const LoginForm = ({
                 {isLoading ? (
                     <ActivityIndicator size="large" color="gray" />
                 ) : (
-                    (
-                        showCancelButton && (
+                    <>
+                        {showCancelButton && (
                             <CancelButton onPress={onCancelButtonPress}>
                                 <Text style={{ color: "black" }}>{cancelText}</Text>
                             </CancelButton>
-                        )
-                    )(
-                        <SubmitButton onPress={onSubmitButtonPress}>
+                        )}
+                        <SubmitButton
+                            style={showCancelButton && styles.shrinkedWidthButton}
+                            onPress={onSubmitButtonPress}
+                        >
                             <Text style={{ color: "white" }}>{submitText}</Text>
                         </SubmitButton>
-                    )
+                    </>
                 )}
             </ButtonSpace>
         </Container>
@@ -106,6 +108,9 @@ const styles = StyleSheet.create({
     disabledButton: {
         backgroundColor: "#D9D9D9",
     },
+    howdoimakeshadowjesus: {
+        elevation: 2,
+    },
 });
 
 const Container = styled.View`
@@ -115,13 +120,12 @@ const Container = styled.View`
 
 const FormBody = styled.View`
     border-radius: 8px;
-    border: 1px solid black;
 `;
 
 const FormInput = styled.View`
     width: 318px;
     height: 52px;
-    padding: 10px;
+    padding: 6px;
 
     flex-direction: row;
     align-items: center;
@@ -133,6 +137,7 @@ const FormInput = styled.View`
 const IconSpace = styled.View`
     width: 36px;
     height: 36px;
+    padding-right: 2px;
 
     justify-content: center;
     align-items: center;

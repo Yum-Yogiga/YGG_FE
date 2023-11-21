@@ -4,7 +4,7 @@ import { Redirect } from "expo-router";
 import { Link } from "expo-router";
 
 export default function App() {
-    return <Redirect href="/auth/login" />;
+    return <Redirect href="/auth/signup" />;
 
     return (
         <SafeAreaView style={styles.container}>
