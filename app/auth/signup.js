@@ -82,10 +82,10 @@ export default function Signup() {
                         values={values}
                         errors={errors}
                         handleChange={handleChange}
-                        placeholders={placeholders}
                         isLoading={isLoading}
                         onSubmitButtonPress={handleGoNextFormButtonPress}
                         submitText="이메일 인증"
+                        showCancelButton={true}
                         onCancelButtonPress={handleCancelSignupButtonPress}
                         cancelText="취소"
                         displayError={showIdFormError}
