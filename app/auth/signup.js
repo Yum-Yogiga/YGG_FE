@@ -38,37 +38,64 @@ const idFormData = [
     },
 ];
 
+const verifFormData = [
+    {
+        name: "email",
+        placeholder: "****@****.com",
+        validation: (value) => {
+            return "";
+        },
+    },
+    {
+        name: "verification_code",
+        placeholder: "인증번호를 입력해주세요",
+        validation: (value) => {
+            return "";
+        },
+    },
+];
+
 export default function Signup() {
     const logo = require("assets/logo.png");
     const router = useRouter();
 
-    const [showEmailVerif, setShowEmailVerif] = useState(false);
-    const [showIdFormError, setShowFirstFormError] = useState(false);
+    const [showIdVerif, setShowIdVerif] = useState(true);
+    const [showIdFormError, setShowIdFormError] = useState(false);
+    const [showVerifFormError, setShowVerifFormError] = useState(false);
 
-    const loginFunc = (values) => {
-        console.log(values);
-    };
+    const completeIdForm = () => {};
 
-    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(idFormData, loginFunc);
+    const loginFunc = () => {};
+
+    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(idFormData, completeIdForm);
 
     const handleGoNextFormButtonPress = () => {
-        setShowEmailVerif(true);
+        handleSubmit();
+        setShowIdVerif(false);
     };
 
     const handleCancelSignupButtonPress = () => {
         router.push("/auth/login");
     };
 
+    const {
+        values: verifValues,
+        errors: verifErrors,
+        isLoading: verifIsLoading,
+        handleChange: verifHandleChange,
+        handleSubmit: verifHandleSubmit,
+    } = useForm(verifFormData, loginFunc);
+
     const handleVerifSubmit = () => {
         console.log("인증 확인 모달");
     };
 
     const handleSignupButtonPress = () => {
-        handleSubmit();
+        verifHandleSubmit();
     };
 
     const handleCancelEmailVerifButtonPress = () => {
-        setShowEmailVerif(false);
+        setShowIdVerif(true);
     };
 
     return (
@@ -77,7 +104,7 @@ export default function Signup() {
                 <LogoSpace>
                     <Logo source={logo} />
                 </LogoSpace>
-                {showEmailVerif || (
+                {showIdVerif ? (
                     <LoginForm
                         formData={idFormData}
                         values={values}
@@ -90,6 +117,20 @@ export default function Signup() {
                         onCancelButtonPress={handleCancelSignupButtonPress}
                         cancelText="취소"
                         displayError={showIdFormError}
+                    />
+                ) : (
+                    <LoginForm
+                        formData={verifFormData}
+                        values={verifValues}
+                        errors={verifErrors}
+                        handleChange={verifHandleChange}
+                        isLoading={verifIsLoading}
+                        onSubmitButtonPress={handleSignupButtonPress}
+                        submitText="회원가입 완료"
+                        showCancelButton={true}
+                        onCancelButtonPress={handleCancelEmailVerifButtonPress}
+                        cancelText="취소"
+                        displayError={showVerifFormError}
                     />
                 )}
             </Container>
