@@ -1,5 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
-import { useState } from "react";
+import { Text, StyleSheet, ActivityIndicator } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { styled } from "styled-components/react";
 
