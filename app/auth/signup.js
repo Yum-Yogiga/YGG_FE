@@ -71,7 +71,12 @@ export default function Signup() {
                     <Logo source={logo} />
                 </LogoSpace>
                 {showEmailVerif || (
-                    <LoginForm formData={signupFormData} onSubmit={handleSubmit} submitText="이메인 인증" />
+                    <LoginForm
+                        formData={signupFormData}
+                        onSubmit={handleSubmit}
+                        onCancel={() => {}}
+                        submitText="이메인 인증"
+                    />
                 )}
                 {showEmailVerif && (
                     <LoginForm formData={emailVerifFormData} onSubmit={handleSubmit} submitText="인증 완료" />

@@ -5,13 +5,25 @@ import { EvilIcons } from "@expo/vector-icons";
 import { useForm } from "hooks";
 import { FormTextInput } from "molecule";
 
-export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoErrorDisplay = false, ...props }) => {
+export const LoginForm = ({
+    formData,
+    onSubmit,
+    submitText = "로그인",
+    onCancel,
+    cancelText = "취소",
+    autoErrorDisplay = false,
+    ...props
+}) => {
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm(formData, onSubmit);
     const [showError, setShowError] = useState(autoErrorDisplay);
 
     const handlePressSubmit = () => {
         if (!showError) setShowError(true);
         handleSubmit();
+    };
+
+    const handlePressCancel = () => {
+        onCancel();
     };
 
     const getInputStyle = (index) => {
@@ -71,17 +83,32 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
                             );
                     })}
             </View>
-            <TouchableOpacity
-                style={[styles.submitButton, isLoading && styles.disabledButton]}
-                disabled={isLoading}
-                onPress={handlePressSubmit}
-            >
-                {isLoading ? (
-                    <ActivityIndicator size="large" color="gray" />
-                ) : (
-                    <Text style={styles.buttonText}>{submitText}</Text>
+            <View style={styles.buttonSpace}>
+                {onCancel && (
+                    <TouchableOpacity
+                        style={[styles.cancelButton, isLoading && styles.disabledButton]}
+                        disabled={isLoading}
+                        onPress={handlePressCancel}
+                    >
+                        {isLoading ? (
+                            <ActivityIndicator size="large" color="black" />
+                        ) : (
+                            <Text style={{ color: "black" }}>{cancelText}</Text>
+                        )}
+                    </TouchableOpacity>
                 )}
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.submitButton, onCancel && styles.submitButton2, isLoading && styles.disabledButton]}
+                    disabled={isLoading}
+                    onPress={handlePressSubmit}
+                >
+                    {isLoading ? (
+                        <ActivityIndicator size="large" color="gray" />
+                    ) : (
+                        <Text style={styles.buttonText}>{submitText}</Text>
+                    )}
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -137,13 +164,28 @@ const styles = StyleSheet.create({
         color: "red",
         fontSize: 12,
     },
+    buttonSpace: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    cancelButton: {
+        justifyContent: "center",
+        alignItems: "center",
+        width: "45%",
+        height: 52,
+        paddingLeft: "5%",
+        borderRadius: 8,
+    },
     submitButton: {
         justifyContent: "center",
         alignItems: "center",
-        width: 320,
+        width: "100%",
         height: 52,
         borderRadius: 8,
         backgroundColor: "#FF8303",
+    },
+    submitButton2: {
+        width: "45%",
     },
     disabledButton: {
         backgroundColor: "#D9D9D9",
