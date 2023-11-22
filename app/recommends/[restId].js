@@ -3,21 +3,47 @@ import { styled } from "styled-components/native";
 import { TitleLine, Address, Distance, MenuList, Keywords, ButtonPanel } from "organism";
 import { useLocalSearchParams } from "expo-router";
 import { useRestId } from "../context/RestaurantIdContext";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getRestaurantDetails } from "../../api/recommend";
 
 export default function RestaurauntInfo() {
+    const [restInfo, setRestInfo] = useState({});
+    const [isReady, setIsReady] = useState(false);
     const { entry, currentIndex, reroll, getNextEntry, getPreviousEntry } = useRestId();
-    console.log(entry[currentIndex]);
-    const onLoad = async () => {
+
+    useEffect(() => {
+        const getRestInfo = async () => {
+            try {
+                setIsReady(false);
+                const result = await getRestaurantDetails(entry[currentIndex]).catch((e) => console.log(e));
+                const { name, link: mapLink, address, tel, menuList, likecount, dislikecount } = result.data;
+                const rate = dislikecount === 0 ? 100 : Math.floor((100 * likecount) / (likecount + dislikecount));
+                const coverImageLink = menuList[0] ? menuList[0].imageUrl : null;
+                setRestInfo({
+                    coverImageLink,
+                    name,
+                    rate,
+                    mapLink,
+                    address,
+                    tel,
+                    menuList,
+                });
+                setIsReady(true);
+            } catch (e) {
+                console.warn(e);
+            }
+        };
+
         try {
-            const result = await getRestaurantDetails(entry[currentIndex]).catch((e) => console.log(e));
-            console.log(result.data);
+            getRestInfo();
         } catch (e) {
-            console.warn(e);
+            console.log(e);
         }
-    };
-    onLoad();
+    }, []);
+
+    if (!isReady) {
+        return null;
+    }
 
     return (
         <SafeAreaView style={styles.container}>
