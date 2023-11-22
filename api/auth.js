@@ -13,7 +13,7 @@ export const signin = async ({ userId, password }) => {
         });
         return result;
     } catch (e) {
-        console.error("로그인 API 오류");
+        console.error(e);
     }
 };
 

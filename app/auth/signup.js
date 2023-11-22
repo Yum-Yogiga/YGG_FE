@@ -13,7 +13,6 @@ const idFormData = [
         name: "userId",
         placeholder: "ID",
         validation: (value) => {
-            console.log(value);
             if (value.length < 5 || value.length > 16) {
                 return "아이디는 5자~15자로 작성해주세요!";
             }
@@ -100,8 +99,8 @@ export default function Signup() {
 
     const signupFunc = async ({ email }) => {
         const { userId, password, nickname } = values;
-        const result = await signup({ email, userId, password, nickname });
-        return console.log(result);
+        const { data } = await signup({ email, userId, password, nickname });
+        if (data.success) router.back();
     };
 
     const {
