@@ -3,7 +3,14 @@ import axios from "axios";
 
 export const signin = async ({ userId, password }) => {
     try {
-        const result = await axios.post(`${API_END_POINT}/sign-up`, { userId, password });
+        const result = await axios({
+            method: "post",
+            url: `${API_END_POINT}/sign-in`,
+            data: {
+                userId,
+                password,
+            },
+        });
         return result;
     } catch (e) {
         console.error("로그인 API 오류");
@@ -12,9 +19,18 @@ export const signin = async ({ userId, password }) => {
 
 export const signup = async ({ userId, password, email, nickname }) => {
     try {
-        const result = await axios.post(`${API_END_POINT}/sign-up`, { userId, password, email, nickname });
+        const result = await axios({
+            method: "post",
+            url: `${API_END_POINT}/sign-up`,
+            data: {
+                userId,
+                password,
+                email,
+                nickname,
+            },
+        });
         return result;
     } catch (e) {
-        console.error("회원가입 API 오류");
+        console.error(e);
     }
 };
