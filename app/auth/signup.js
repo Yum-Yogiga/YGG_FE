@@ -81,6 +81,7 @@ export default function Signup() {
     const [showIdVerif, setShowIdVerif] = useState(true);
     const [showIdFormError, setShowIdFormError] = useState(false);
     const [showVerifFormError, setShowVerifFormError] = useState(false);
+    const [lockSignup, setLockSignup] = useState(true);
 
     const completeIdForm = () => {
         setShowIdVerif(false);
@@ -112,6 +113,7 @@ export default function Signup() {
     } = useForm(verifFormData, signupFunc);
 
     const handleVerifSubmit = () => {
+        setLockSignup(false);
         console.log("인증 확인 모달");
     };
 
@@ -137,7 +139,7 @@ export default function Signup() {
                         handleChange={handleChange}
                         isLoading={isLoading}
                         onSubmitButtonPress={handleGoNextFormButtonPress}
-                        submitText="이메일 인증"
+                        submitText="인증코드 발급"
                         showCancelButton={true}
                         onCancelButtonPress={handleCancelSignupButtonPress}
                         cancelText="취소"
@@ -156,6 +158,8 @@ export default function Signup() {
                         onCancelButtonPress={handleCancelEmailVerifButtonPress}
                         cancelText="취소"
                         displayError={showVerifFormError}
+                        onVerifSendButtonPress={handleVerifSubmit}
+                        lockSubmitButton={lockSignup}
                     />
                 )}
             </Container>

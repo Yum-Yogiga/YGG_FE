@@ -16,6 +16,8 @@ export const LoginForm = ({
     onCancelButtonPress,
     cancelText = "취소",
     displayError = "false",
+    onVerifSendButtonPress = () => {},
+    lockSubmitButton = false,
     ...props
 }) => {
     const getInputStyle = (index) => {
@@ -55,7 +57,7 @@ export const LoginForm = ({
                             placeholder={placeholder}
                         />
                         {name == "email" && (
-                            <VerifCodeSendButton>
+                            <VerifCodeSendButton onPress={onVerifSendButtonPress}>
                                 <Text>전송</Text>
                             </VerifCodeSendButton>
                         )}
@@ -80,7 +82,10 @@ export const LoginForm = ({
                             </CancelButton>
                         )}
                         <SubmitButton
-                            style={showCancelButton && styles.shrinkedWidthButton}
+                            style={[
+                                showCancelButton && styles.shrinkedWidthButton,
+                                lockSubmitButton && styles.disabledButton,
+                            ]}
                             onPress={onSubmitButtonPress}
                         >
                             <Text style={{ color: "white" }}>{submitText}</Text>
