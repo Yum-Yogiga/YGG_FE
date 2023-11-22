@@ -5,12 +5,19 @@ import { useRouter } from "expo-router";
 
 import { LoginForm } from "organism";
 import { useForm } from "hooks";
+import { signup } from "api";
+import match from "constants/regex.js";
 
 const idFormData = [
     {
         name: "userId",
         placeholder: "ID",
         validation: (value) => {
+            console.log(value);
+            if (value.length < 5 || value.length > 16) {
+                return "아이디는 5자~15자로 작성해주세요!";
+            }
+            if (!match(value, "userId")) return "아이디는 오직 영문, 숫자로 구성돼야합니다!";
             return "";
         },
     },
@@ -18,6 +25,9 @@ const idFormData = [
         name: "nickname",
         placeholder: "닉네임",
         validation: (value) => {
+            if (value.length < 5 || value.length > 16) {
+                return "닉네임은 5자~15자로 작성해주세요!";
+            }
             return "";
         },
     },
@@ -25,6 +35,12 @@ const idFormData = [
         name: "password",
         placeholder: "비밀번호",
         validation: (value) => {
+            if (value.length < 5 || value.length > 16) {
+                return "비밀번호는 5자~15자로 작성해주세요!";
+            }
+            if (!match(value, "password")) {
+                return "비밀번호는 최소 한글자의 특수기호를 포함해야합니다!";
+            }
             return "";
         },
     },
@@ -41,14 +57,17 @@ const idFormData = [
 const verifFormData = [
     {
         name: "email",
-        placeholder: "****@****.com",
+        placeholder: "이메일",
         validation: (value) => {
+            if (!match(value, "email")) {
+                return "이메일 형식이 올바르지 않습니다!";
+            }
             return "";
         },
     },
     {
         name: "verification_code",
-        placeholder: "인증번호를 입력해주세요",
+        placeholder: "데모버전에서는 전송버튼만 눌러주세요!",
         validation: (value) => {
             return "";
         },
@@ -63,21 +82,25 @@ export default function Signup() {
     const [showIdFormError, setShowIdFormError] = useState(false);
     const [showVerifFormError, setShowVerifFormError] = useState(false);
 
-    const [idFormAnswer, setIdFormAnswer] = useState({});
-
-    const completeIdForm = (values) => {};
-
-    const loginFunc = () => {};
+    const completeIdForm = () => {
+        setShowIdVerif(false);
+    };
 
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm(idFormData, completeIdForm);
 
     const handleGoNextFormButtonPress = () => {
+        setShowIdFormError(true);
         handleSubmit();
-        setShowIdVerif(false);
     };
 
     const handleCancelSignupButtonPress = () => {
         router.push("/auth/login");
+    };
+
+    const signupFunc = async ({ email }) => {
+        const { userId, password, nickname } = values;
+        const result = await signup({ email, userId, password, nickname });
+        return console.log(result);
     };
 
     const {
@@ -86,7 +109,7 @@ export default function Signup() {
         isLoading: verifIsLoading,
         handleChange: verifHandleChange,
         handleSubmit: verifHandleSubmit,
-    } = useForm(verifFormData, loginFunc);
+    } = useForm(verifFormData, signupFunc);
 
     const handleVerifSubmit = () => {
         console.log("인증 확인 모달");

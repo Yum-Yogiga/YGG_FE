@@ -18,6 +18,8 @@ export const AuthProvider = ({ children }) => {
             const token = await SecureStore.getItemAsync(TOKEN_KEY);
             console.log("stored:", token);
         };
+
+        axios.defaults.withCredentials = true;
     });
 
     const login = async ({ userId, password }) => {
