@@ -37,8 +37,9 @@ export default function OptionSelect() {
         },
     ];
 
-    const onSubmit = () => {
-        console.log(values);
+    const onSubmit = (values) => {
+        const { distance, price, waiting } = values;
+        router.push({ pathname: "./keywordselect", params: { distance: distance, price: price, waiting: waiting } });
     };
 
     const { values, errors, handleChange, handleSubmit } = useForm(formData, onSubmit);
