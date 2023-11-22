@@ -1,31 +1,20 @@
-import { request } from "./request";
+import { API_END_POINT } from "../constants/api";
+import axios from "axios";
 
-export const signUp = async ({ userId, password, email, nickname }) => {
-    const signUpInfo = { userId, password, email, nickname };
-
+export const signin = async ({ userId, password }) => {
     try {
-        const { token, refreshToken } = await request("sign-up", {
-            method: "POST",
-            mode: "cors",
-            body: JSON.stringify(signUpInfo),
-        });
-        return { token, refreshToken };
+        const result = await axios.post(`${API_END_POINT}/sign-up`, { userId, password });
+        return result;
     } catch (e) {
-        console.error("회원가입 API 오류");
+        console.error("로그인 API 오류");
     }
 };
 
-export const signIn = async ({ userId, password }) => {
-    const signInInfo = { userId, password };
-
+export const signup = async ({ userId, password, email, nickname }) => {
     try {
-        const { token, refreshToken } = await request("sign-in", {
-            method: "POST",
-            mode: "cors",
-            body: JSON.stringify(signInInfo),
-        });
-        return { token, refreshToken };
+        const result = await axios.post(`${API_END_POINT}/sign-up`, { userId, password, email, nickname });
+        return result;
     } catch (e) {
-        console.error("로그인 API 오류");
+        console.error("회원가입 API 오류");
     }
 };
