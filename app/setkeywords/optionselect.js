@@ -16,7 +16,8 @@ export default function OptionSelect() {
             value: 0.5,
             validation: (value) => {
                 const availableAnswers = [0.5, 1.0, 1.5, 2.0];
-                return availableAnswers.includes(value);
+                const result = availableAnswers.includes(value) ? "" : "거리: 유효한 답이 아닙니다";
+                return result;
             },
         },
         {
@@ -24,7 +25,8 @@ export default function OptionSelect() {
             value: "cheap",
             validation: (value) => {
                 const availableAnswers = ["cheap", "moderate", "expensive"];
-                return availableAnswers.includes(value);
+                const result = availableAnswers.includes(value) ? "" : "가격: 유효한 답이 아닙니다";
+                return result;
             },
         },
         {
@@ -32,7 +34,8 @@ export default function OptionSelect() {
             value: "no waiting",
             validation: (value) => {
                 const availableAnswers = ["no waiting", "moderate waiting", "long waiting"];
-                return availableAnswers.includes(value);
+                const result = availableAnswers.includes(value) ? "" : "웨이팅: 유효한 답이 아닙니다";
+                return result;
             },
         },
     ];
