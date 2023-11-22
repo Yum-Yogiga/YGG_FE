@@ -6,11 +6,15 @@ export const signin = async ({ userId, password }) => {
         const result = await axios({
             method: "post",
             url: `${API_END_POINT}/sign-in`,
+            headers: {
+                accept: "*/*",
+                "Content-Type": "application/json",
+            },
             data: {
                 userId,
                 password,
             },
-        });
+        }).catch((e) => console.log(`~ ~ auth.js: 17 ~ ~${e}`));
         return result;
     } catch (e) {
         console.error(e);

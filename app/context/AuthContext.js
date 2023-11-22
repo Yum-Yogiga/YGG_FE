@@ -20,12 +20,13 @@ export const AuthProvider = ({ children }) => {
         };
 
         axios.defaults.withCredentials = true;
-    });
+        loadToken();
+    }, []);
 
     const login = async ({ userId, password }) => {
         try {
-            const result = signin({ userId, password });
-            console.log("~AuthContext.js: 35 ~ login ~ result:", result);
+            const result = await signin({ userId, password }).catch((e) => console.log(e));
+            console.log("~AuthContext.js: 29 ~ login ~ result:", result.data);
 
             setAuthState({
                 token: result.data.token,
@@ -36,9 +37,9 @@ export const AuthProvider = ({ children }) => {
 
             await SecureStore.setItemAsync(TOKEN_KEY, result.data.token);
 
-            return result;
+            return result.data.success;
         } catch (e) {
-            return { error: true, msg: e.response.data.msg };
+            console.log(`~ ~ AuthContext.js: 46 ~ ~: ${e}`);
         }
     };
 

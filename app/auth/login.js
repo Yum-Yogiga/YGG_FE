@@ -13,6 +13,10 @@ const loginFormData = [
         name: "userId",
         placeholder: "ID",
         validation: (value) => {
+            if (value.length < 5 || value.length > 16) {
+                return "아이디는 5자~15자로 작성해주세요!";
+            }
+            if (!match(value, "userId")) return "아이디는 오직 영문, 숫자로 구성돼야합니다!";
             return "";
         },
     },
@@ -20,6 +24,12 @@ const loginFormData = [
         name: "password",
         placeholder: "비밀번호",
         validation: (value) => {
+            if (value.length < 5 || value.length > 16) {
+                return "비밀번호는 5자~15자로 작성해주세요!";
+            }
+            if (!match(value, "password")) {
+                return "비밀번호는 최소 한글자의 특수기호를 포함해야합니다!";
+            }
             return "";
         },
     },
@@ -28,23 +38,21 @@ const loginFormData = [
 export default function Login() {
     const logo = require("assets/logo.png");
     const router = useRouter();
-    const { onLogin } = useAuth();
+    const { onLogin, authState } = useAuth();
 
     const [showLoginFormError, setShowLoginFormError] = useState(false);
 
-    const login = async () => {
-        const result = await onLogin(email, password);
-        if (result && result.error) {
-            alert(result.msg);
+    const login = async ({ userId, password }) => {
+        const result = await onLogin({ userId, password }).catch();
+        if (result) {
+            router.push("/setkeywords/optionselect");
         }
     };
 
-    const dummyLogin = () => {};
-
-    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(loginFormData);
+    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(loginFormData, login);
 
     const handleSubmitButtonPress = async (value) => {
-        handleSubmit;
+        handleSubmit();
     };
 
     return (
