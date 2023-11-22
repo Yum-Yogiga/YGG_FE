@@ -17,6 +17,23 @@ export const useRestId = () => {
 
 export const RestIdProvider = ({ children }) => {
     const [idEntry, setIdEntry] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(1);
+
+    const getNextEntry = () => {
+        if (currentIndex < MAX_ENTRY_SIZE - 1) {
+            const newIndex = currentIndex++;
+            setCurrentIndex(newIndex);
+            return idEntry[newIndex];
+        }
+    };
+
+    const getPreviousEntry = () => {
+        if (currentIndex > 0) {
+            const newIndex = currentIndex--;
+            setCurrentIndex(newIndex);
+            return idEntry[newIndex];
+        }
+    };
 
     const reroll = () => {
         const newEntry = new Set();
@@ -24,7 +41,7 @@ export const RestIdProvider = ({ children }) => {
         while (newEntry.size < MAX_ENTRY_SIZE) {
             newEntry.add(getRandomInt(MIN_ID, MAX_ID));
         }
-        setIdEntry(newEntry);
+        setIdEntry(Array.from(newEntry));
     };
 
     useEffect(() => {
@@ -33,7 +50,10 @@ export const RestIdProvider = ({ children }) => {
 
     const value = {
         entry: idEntry,
-        onReroll: reroll,
+        entryLength: MAX_ENTRY_SIZE,
+        reroll,
+        getNextEntry,
+        getPreviousEntry,
     };
 
     return <RestIdContext.Provider value={value}>{children}</RestIdContext.Provider>;

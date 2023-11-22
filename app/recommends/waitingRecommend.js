@@ -3,13 +3,15 @@ import { useRouter } from "expo-router";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
+import { useRestId } from "../context/RestaurantIdContext";
 
 export default function RestaurauntInfo() {
     const router = useRouter();
+    const { entry } = useRestId();
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push("./dummyInfo1");
+            router.push(`${entry[0]}`);
         }, 3000);
 
         return () => {

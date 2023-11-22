@@ -24,4 +24,4 @@ export const getRestaurantNames = async (keywordValues) => {
     }
 };
 
-export const getRestaurantDetails = async();
+export const getRestaurantDetails = async () => {};

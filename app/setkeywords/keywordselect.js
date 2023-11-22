@@ -66,6 +66,7 @@ export default function KeywordSelect() {
     const params = useLocalSearchParams();
 
     const handlePressSubmit = async () => {
+        /*
         const result = [];
         optionsList.forEach((listValue) => {
             const hasVal = value.includes(listValue) ? 1 : 0;
@@ -73,6 +74,8 @@ export default function KeywordSelect() {
         });
         const response = await getRestaurantNames(result);
         console.log(`~ ~ keywordselect.js ~ ~\n${response}`);
+        */
+        router.push("/recommends/waitingRecommend");
     };
 
     const handleChange = (selectedValue) => {

@@ -29,6 +29,7 @@ export default function Layout() {
                     }}
                 >
                     <Stack.Screen name="waitingRecommend" options={{ headerShown: false }} />
+                    <Stack.Screen name="[restId]" options={{ headerShown: false }} />
                 </Stack>
             </RestIdProvider>
         </SafeAreaProvider>
