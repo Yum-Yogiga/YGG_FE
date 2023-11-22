@@ -1,10 +1,10 @@
 import { SafeAreaView, StyleSheet } from "react-native";
-import { Redirect } from "expo-router";
+import { Text } from "react-native";
 
 export default function App() {
     return (
         <SafeAreaView style={styles.container}>
-            <Redirect href="/auth/login" />
+            <Text>404 Not Found</Text>
         </SafeAreaView>
     );
 }
@@ -13,5 +13,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
     },
 });

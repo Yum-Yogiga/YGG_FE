@@ -4,15 +4,19 @@ import LeftButtonIcon from "assets/RestInfoLeftButton.js";
 import RightButtonIcon from "assets/RestInfoRightButton.js";
 import OkButtonIcon from "assets/RestInfoOkButton.js";
 import RerollButtonIcon from "assets/RestInfoRerollButton.js";
+import CancelButtonIcon from "assets/RestInfoCancelButton.js";
 
 export function ButtonPanel({
     showLeftButton = true,
     showRightButton = true,
     showRerollButton = true,
+    showCancelButton = false,
+    showPageNum = true,
     handleLeftButtonTouch = () => {},
     handleRightButtonTouch = () => {},
     handleOkButtonTouch = () => {},
     handleRerollButtonTouch = () => {},
+    handleCancelButtonTouch = () => {},
     currentPage = 5,
     totalPage = 10,
 }) {
@@ -33,6 +37,11 @@ export function ButtonPanel({
                             <RerollButtonIcon width={52} height={52} />
                         </RerollButton>
                     )}
+                    {showCancelButton && (
+                        <CancelButton onPress={handleCancelButtonTouch}>
+                            <CancelButtonIcon width={52} height={52} />
+                        </CancelButton>
+                    )}
                 </MainButtonSpace>
                 {showRightButton && (
                     <MoveAsideButton onPress={handleRightButtonTouch}>
@@ -41,20 +50,21 @@ export function ButtonPanel({
                 )}
             </ButtonsContainer>
             <PageCountLine>
-                <PageCount>
-                    {currentPage} / {totalPage}
-                </PageCount>
+                {showPageNum && (
+                    <PageCount>
+                        {currentPage} / {totalPage}
+                    </PageCount>
+                )}
             </PageCountLine>
         </Container>
     );
 }
 
 const Container = styled.View`
-    flex-grow: 1;
-    max-height: 150px;
+    height: 120px;
     width: 100%;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     background-color: white;
 `;
 
@@ -88,6 +98,13 @@ const OkButton = styled.TouchableOpacity`
 `;
 
 const RerollButton = styled.TouchableOpacity`
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+`;
+
+const CancelButton = styled.TouchableOpacity`
     width: 56px;
     height: 56px;
     justify-content: center;

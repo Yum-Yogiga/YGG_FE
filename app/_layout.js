@@ -5,6 +5,7 @@ import { Stack } from "expo-router/stack";
 import { AntDesign } from "@expo/vector-icons";
 
 import { StatusBar } from "react-native";
+import { AuthProvider } from "./context/AuthContext";
 
 const MyTheme = {
     ...DefaultTheme,
@@ -20,33 +21,36 @@ export default function Layout() {
     const router = useRouter();
 
     return (
-        <ThemeProvider value={MyTheme}>
-            <SafeAreaProvider>
-                <StatusBar backgroundColor="#FE6E00" />
-                <Stack
-                    screenOptions={{
-                        headerStyle: {
-                            backgroundColor: "white",
-                        },
-                        headerLeft: () => (
-                            <AntDesign
-                                name="left"
-                                size={24}
-                                color="black"
-                                onPress={() => {
-                                    router.back();
-                                }}
-                            />
-                        ),
-                        title: null,
-                    }}
-                >
-                    <Stack.Screen name="index" options={{ headerShown: false }} />
-                    <Stack.Screen name="Login" options={{ headerShown: false }} />
-                    <Stack.Screen name="Signup" options={{ headerShown: true }} />
-                    <Stack.Screen name="RestaurauntInfo" options={{ headerShown: false }} />
-                </Stack>
-            </SafeAreaProvider>
-        </ThemeProvider>
+        <AuthProvider>
+            <ThemeProvider value={MyTheme}>
+                <SafeAreaProvider>
+                    <StatusBar backgroundColor="#FE6E00" />
+                    <Stack
+                        screenOptions={{
+                            headerStyle: {
+                                backgroundColor: "white",
+                            },
+                            headerLeft: () => (
+                                <AntDesign
+                                    name="left"
+                                    size={24}
+                                    color="black"
+                                    onPress={() => {
+                                        router.back();
+                                    }}
+                                />
+                            ),
+                            title: null,
+                        }}
+                    >
+                        <Stack.Screen name="setkeywords" options={{ headerShown: false }} />
+                        <Stack.Screen name="recommends" options={{ headerShown: false }} />
+                        <Stack.Screen name="waitingReview" options={{ headerShown: false }} />
+                        <Stack.Screen name="auth" options={{ headerShown: false }} />
+                        <Stack.Screen name="[unknownpage]" options={{ headerShown: true }} />
+                    </Stack>
+                </SafeAreaProvider>
+            </ThemeProvider>
+        </AuthProvider>
     );
 }

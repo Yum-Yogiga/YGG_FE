@@ -17,7 +17,7 @@ const DummyKeywords = [
     },
 ];
 
-export function Keywords() {
+export function Keywords({ keywords = DummyKeywords }) {
     return (
         <Container>
             <TitleLine>
@@ -25,7 +25,7 @@ export function Keywords() {
                 <Title>상위 키워드</Title>
             </TitleLine>
             <KeywordSpace>
-                {DummyKeywords.map(({ name, value }) => (
+                {keywords.map(({ name, value }) => (
                     <KeywordLine key={name}>
                         <KeywordName>{name}</KeywordName>
                         <KeywordRate>{value}</KeywordRate>

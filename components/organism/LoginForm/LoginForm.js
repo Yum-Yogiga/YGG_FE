@@ -1,21 +1,27 @@
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
-import { useState } from "react";
+import { Text, StyleSheet, ActivityIndicator } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
+import { styled } from "styled-components/native";
 
-import { useForm } from "hooks";
 import { FormTextInput } from "molecule";
 
-export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoErrorDisplay = false, ...props }) => {
-    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(formData, onSubmit);
-    const [showError, setShowError] = useState(autoErrorDisplay);
-
-    const handlePressSubmit = () => {
-        if (!showError) setShowError(true);
-        handleSubmit();
-    };
-
+export const LoginForm = ({
+    formData,
+    values,
+    errors,
+    handleChange,
+    isLoading = false,
+    onSubmitButtonPress,
+    submitText = "로그인",
+    showCancelButton = false,
+    onCancelButtonPress,
+    cancelText = "취소",
+    displayError = "false",
+    onVerifSendButtonPress = () => {},
+    lockSubmitButton = false,
+    ...props
+}) => {
     const getInputStyle = (index) => {
-        const formInputStyle = [styles.formInput];
+        const formInputStyle = [];
         index == 0 && formInputStyle.push(styles.firstInput);
         index == formData.length - 1 && formInputStyle.push(styles.lastInput);
         return formInputStyle;
@@ -23,84 +29,75 @@ export const LoginForm = ({ formData, onSubmit, submitText = "로그인", autoEr
 
     const getIconShape = (name) => {
         switch (name) {
+            case "email":
             case "userId":
             case "nickname":
                 return "user";
             case "password":
-                return "lock";
             case "password_verification":
+                return "lock";
+            case "verification_code":
                 return "lock";
         }
     };
 
     return (
-        <View style={styles.container} {...props}>
-            <View style={styles.formBody}>
+        <Container {...props}>
+            <FormBody style={styles.howdoimakeshadowjesus}>
                 {formData.map(({ name, placeholder }, index) => (
-                    <View key={name} style={getInputStyle(index)}>
-                        <View style={styles.icon}>
-                            <EvilIcons name={getIconShape(name)} size={32} color="black" />
-                        </View>
-                        <FormTextInput
-                            style={styles.textInput}
-                            placeholder={placeholder}
+                    <FormInput key={name} style={getInputStyle(index)}>
+                        <IconSpace>
+                            <EvilIcons name={getIconShape(name)} size={36} color="black" />
+                        </IconSpace>
+                        <TextInputLine
+                            type={name}
                             value={values[name]}
-                            error={showError && errors[name]}
+                            error={displayError && errors[name].length > 0}
                             onChangeText={handleChange(name)}
-                            secureTextEntry={name === "password" || name === "password_verification"}
+                            placeholder={placeholder}
                         />
-                    </View>
+                        {name == "email" && (
+                            <VerifCodeSendButton onPress={onVerifSendButtonPress}>
+                                <Text>전송</Text>
+                            </VerifCodeSendButton>
+                        )}
+                    </FormInput>
                 ))}
-            </View>
-            <View style={styles.errorMessageView}>
-                {showError &&
+            </FormBody>
+            <ErrorMessageView>
+                {displayError &&
                     formData.map(({ name }) => {
                         const message = errors[name];
-                        if (message.length > 0)
-                            return (
-                                <Text style={styles.errorMessage} key={name}>
-                                    *{message}
-                                </Text>
-                            );
+                        if (message.length > 0) return <ErrorMessage key={name}>*{message}</ErrorMessage>;
                     })}
-            </View>
-            <TouchableOpacity
-                style={[styles.submitButton, isLoading && styles.disabledButton]}
-                disabled={isLoading}
-                onPress={handlePressSubmit}
-            >
+            </ErrorMessageView>
+            <ButtonSpace>
                 {isLoading ? (
                     <ActivityIndicator size="large" color="gray" />
                 ) : (
-                    <Text style={styles.buttonText}>{submitText}</Text>
+                    <>
+                        {showCancelButton && (
+                            <CancelButton onPress={onCancelButtonPress}>
+                                <Text style={{ color: "black" }}>{cancelText}</Text>
+                            </CancelButton>
+                        )}
+                        <SubmitButton
+                            style={[
+                                showCancelButton && styles.shrinkedWidthButton,
+                                lockSubmitButton && styles.disabledButton,
+                            ]}
+                            onPress={onSubmitButtonPress}
+                        >
+                            <Text style={{ color: "white" }}>{submitText}</Text>
+                        </SubmitButton>
+                    </>
                 )}
-            </TouchableOpacity>
-        </View>
+            </ButtonSpace>
+        </Container>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        width: 320,
-        justifyContent: "center",
-    },
-    formBody: {
-        borderRadius: 8,
-        borderColor: "#D9D9D9",
-        shadowColor: "black",
-        elevation: 2,
-    },
-    formInput: {
-        width: 318,
-        height: 52,
-        padding: 10,
-        flexDirection: "row",
-        alignItems: "center",
-        borderWidth: 1,
-        borderBottomWidth: 0,
-        borderColor: "#D9D9D9",
-        backgroundColor: "white",
-    },
     firstInput: {
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
@@ -110,37 +107,94 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 8,
         borderBottomRightRadius: 8,
     },
-    icon: {
-        width: 32,
-        height: 32,
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        alignSelf: "center",
-    },
-    textInput: {
-        flex: 1,
-    },
-    errorMessageView: {
-        marginVertical: 6,
-    },
-    errorMessage: {
-        marginVertical: 2,
-        color: "red",
-        fontSize: 12,
-    },
-    submitButton: {
-        justifyContent: "center",
-        alignItems: "center",
-        width: 320,
-        height: 52,
-        borderRadius: 8,
-        backgroundColor: "#FF8303",
+    shrinkedWidthButton: {
+        width: "45%",
     },
     disabledButton: {
         backgroundColor: "#D9D9D9",
     },
-    buttonText: {
-        color: "white",
+    howdoimakeshadowjesus: {
+        elevation: 2,
     },
 });
+
+const Container = styled.View`
+    width: 320px;
+    justify-content: center;
+`;
+
+const FormBody = styled.View`
+    border-radius: 8px;
+`;
+
+const FormInput = styled.View`
+    width: 318px;
+    height: 52px;
+    padding: 6px;
+
+    flex-direction: row;
+    align-items: center;
+
+    border: 1px solid #d9d9d9;
+    background-color: white;
+`;
+
+const IconSpace = styled.View`
+    width: 36px;
+    height: 36px;
+    padding-right: 2px;
+
+    justify-content: center;
+    align-items: center;
+`;
+
+const TextInputLine = styled(FormTextInput)`
+    flex: 1;
+`;
+
+const VerifCodeSendButton = styled.TouchableOpacity`
+    width: 48px;
+    height: 30px;
+
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+`;
+
+const ErrorMessageView = styled.View`
+    margin: 6px 0px;
+`;
+
+const ErrorMessage = styled.Text`
+    margin: 2px 0px;
+    color: red;
+    font-size: 12px;
+`;
+
+const ButtonSpace = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+const CancelButton = styled.TouchableOpacity`
+    width: 45%;
+    height: 52px;
+    padding-left: 5%;
+    justify-content: center;
+    align-items: center;
+`;
+
+const SubmitButton = styled.TouchableOpacity`
+    width: 100%;
+    height: 52px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 8px;
+    background-color: #ff8303;
+
+    color: white;
+`;

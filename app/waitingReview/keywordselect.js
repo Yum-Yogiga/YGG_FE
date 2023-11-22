@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 import { styled } from "styled-components/native";
 import { MultiIconSelectInput } from "molecule";
 
+/*
 const dummyOptions = [
     {
         name: "키워드1",
@@ -51,11 +53,16 @@ const dummyOptions = [
         icon: "price_cheap",
     },
 ];
+*/
 
 export default function KeywordSelect() {
     const [value, setValue] = useState([]);
 
-    const handlePressSubmit = () => {};
+    const router = useRouter();
+
+    const handlePressSubmit = () => {
+        router.push("/recommends/waitingRecommend");
+    };
 
     const handleChange = (selectedValue) => {
         const index = value.indexOf(selectedValue);
@@ -72,8 +79,8 @@ export default function KeywordSelect() {
 
     return (
         <Container>
-            <Label>키워드 선택</Label>
-            <MultiIconSelectInput entry={dummyOptions} iconSize={72} value={value} onChange={handleChange} />
+            <Label>어울리는 키워드를 골라주세요!</Label>
+            <MultiIconSelectInput entrySetName="dummy" iconSize={72} value={value} onChange={handleChange} />
             <FormCompleteButton onPress={handlePressSubmit}>
                 <MaterialIcons name="check" size={64} color="white" />
             </FormCompleteButton>
@@ -82,6 +89,7 @@ export default function KeywordSelect() {
 }
 
 const Container = styled.View`
+    padding-top: 30px;
     flex-direction: column;
     align-items: center;
 `;
