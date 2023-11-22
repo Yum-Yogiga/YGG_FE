@@ -1,5 +1,6 @@
 import { API_END_POINT } from "../constants/api";
 import axios from "axios";
+import qs from "qs";
 
 export const getRestaurantNames = async (keywordValues) => {
     try {
@@ -10,8 +11,11 @@ export const getRestaurantNames = async (keywordValues) => {
                 accept: "*/*",
                 "Content-Type": "application/json",
             },
-            data: {
+            params: {
                 keywordInput: keywordValues,
+            },
+            paramsSerializer: (params) => {
+                return qs.stringify(params, { arrayFormat: "brackets" });
             },
         }).catch((e) => console.log(`E E recommend.js: 16 E E\n${e}`));
         return result;
@@ -19,3 +23,5 @@ export const getRestaurantNames = async (keywordValues) => {
         console.error(e);
     }
 };
+
+export const getRestaurantDetails = async();

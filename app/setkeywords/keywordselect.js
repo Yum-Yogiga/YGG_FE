@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 
 import { styled } from "styled-components/native";
 import { MultiIconSelectInput } from "molecule";
-import { getRestaurantNames } from "api/recommend";
+import { getRestaurantNames } from "../../api/recommend";
 
 const FormEntry = [
     {
@@ -57,18 +57,13 @@ const FormEntry = [
 ];
 
 const optionsList = ["clean", "tasty", "largePortion", "interior", "kind", "fresh", "solo", "lowCost", "special"];
-// 재료가 신선해요 넣기
-/*
-사용자가 입력한 옵션과 키워드값을 서버에 전송해서
-서버에서 추천 식당 목록을 받아오면 됩니다 
-*/
 
 export default function KeywordSelect() {
     const [value, setValue] = useState([]);
 
     const router = useRouter();
 
-    const params = useLocalSearchParams(); //가격, 거리, 웨이팅 적용시 사용
+    const params = useLocalSearchParams();
 
     const handlePressSubmit = async () => {
         const result = [];
