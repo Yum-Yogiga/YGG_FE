@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
-import { API_END_POINT } from "../../constants/api";
+import { signin } from "api";
 
 const TOKEN_KEY = "my-jwt";
 const AuthContext = createContext({});
@@ -20,19 +20,10 @@ export const AuthProvider = ({ children }) => {
         };
     });
 
-    const register = async (email, password) => {
+    const login = async ({ userId, password }) => {
         try {
-            //api 주소 수정 필요
-            return await axios.post(`${API_END_POINT}/users`, { email, password });
-        } catch (e) {
-            return { error: true, msg: e.response.data.msg };
-        }
-    };
-
-    const login = async (email, password) => {
-        try {
-            const result = await axios.post(`${API_END_POINT}/sign-in`, { email, password });
-            console.log("~AuthContext.js: 28 ~ login ~ result:", result);
+            const result = signin({ userId, password });
+            console.log("~AuthContext.js: 35 ~ login ~ result:", result);
 
             setAuthState({
                 token: result.data.token,
@@ -59,7 +50,6 @@ export const AuthProvider = ({ children }) => {
     };
 
     const value = {
-        onRegister: register,
         onLogin: login,
         onLogout: logout,
         authState,
