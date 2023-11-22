@@ -37,24 +37,26 @@ export default function OptionSelect() {
         },
     ];
 
-    const onSubmit = () => {};
+    const onSubmit = () => {
+        console.log(values);
+    };
+
     const { values, errors, handleChange, handleSubmit } = useForm(formData, onSubmit);
     const [showError, setShowError] = useState(true);
 
     const handlePressSubmit = () => {
         if (!showError) setShowError(true);
         handleSubmit();
-        router.push("./keywordselect");
     };
 
     return (
         <Container>
             <>
-                <View style={{ marginTop: 72 }}>
+                <View>
                     <Label>거리</Label>
                     <DistanceInput value={values["distance"]} onChange={handleChange("distance")} />
                 </View>
-                <View style={{ marginTop: 50 }}>
+                <View style={{ marginTop: 64 }}>
                     <Label>가격</Label>
                     <IconSelectInput
                         entrySetName="price"
@@ -64,7 +66,7 @@ export default function OptionSelect() {
                         error={errors["price"]}
                     />
                 </View>
-                <View style={{ marginTop: 26 }}>
+                <View style={{ marginTop: 40 }}>
                     <Label>웨이팅</Label>
                     <IconSelectInput
                         entrySetName="waiting"
@@ -83,18 +85,19 @@ export default function OptionSelect() {
 }
 
 const Container = styled.View`
+    padding-top: 88px;
     flex: 1;
     align-items: center;
-    justify-content: center;
 `;
 
 const Label = styled.Text`
     font-size: 24px;
+    justify-content: center;
     text-align: center;
 `;
 
 const NextPageButton = styled.TouchableOpacity`
-    margin-top: 8px;
+    margin-top: 16px;
     width: 72px;
     height: 72px;
     border-radius: 36px;

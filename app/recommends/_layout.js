@@ -27,8 +27,6 @@ export default function Layout() {
                 }}
             >
                 <Stack.Screen name="waitingRecommend" options={{ headerShown: false }} />
-                <Stack.Screen name="dummyInfo1" options={{ headerShown: false }} />
-                <Stack.Screen name="dummyInfo2" options={{ headerShown: false }} />
             </Stack>
         </SafeAreaProvider>
     );

@@ -5,64 +5,60 @@ import { useRouter } from "expo-router";
 import { styled } from "styled-components/native";
 import { MultiIconSelectInput } from "molecule";
 
-/*
-const dummyOptions = [
+const FormEntry = [
     {
-        name: "키워드1",
-        optionValue: "keyword_1",
-        icon: "price_cheap",
+        name: "맛있어요",
+        optionValue: "dummy1",
+        icon: "keyword_tasty",
     },
     {
-        name: "키워드2",
-        optionValue: "keyword_2",
-        icon: "price_cheap",
+        name: "가성비가 좋아요",
+        optionValue: "dummy2",
+        icon: "keyword_lowCost",
     },
     {
-        name: "키워드3",
-        optionValue: "keyword_3",
-        icon: "price_cheap",
+        name: "빨리 나와요",
+        optionValue: "dummy3",
+        icon: "keyword_fast",
     },
     {
-        name: "키워드4",
-        optionValue: "keyword_4",
-        icon: "price_cheap",
+        name: "양이 많아요",
+        optionValue: "dummy4",
+        icon: "keyword_amount",
     },
     {
-        name: "키워드5",
-        optionValue: "keyword_5",
-        icon: "price_cheap",
+        name: "인테리어가 좋아요",
+        optionValue: "dummy5",
+        icon: "keyword_interior",
     },
     {
-        name: "키워드6",
-        optionValue: "keyword_6",
-        icon: "price_cheap",
+        name: "청결해요",
+        optionValue: "dummy6",
+        icon: "keyword_clean",
     },
     {
-        name: "키워드7",
-        optionValue: "keyword_7",
-        icon: "price_cheap",
+        name: "친절해요",
+        optionValue: "dummy7",
+        icon: "keyword_kind",
     },
     {
-        name: "키워드8",
-        optionValue: "keyword_8",
-        icon: "price_cheap",
+        name: "특별해요",
+        optionValue: "dummy8",
+        icon: "keyword_special",
     },
     {
-        name: "키워드9",
-        optionValue: "keyword_9",
-        icon: "price_cheap",
+        name: "혼밥하기 좋아요",
+        optionValue: "dummy9",
+        icon: "keyword_solo",
     },
 ];
-*/
 
 export default function KeywordSelect() {
     const [value, setValue] = useState([]);
 
     const router = useRouter();
 
-    const handlePressSubmit = () => {
-        router.push("/recommends/waitingRecommend");
-    };
+    const handlePressSubmit = () => {};
 
     const handleChange = (selectedValue) => {
         const index = value.indexOf(selectedValue);
@@ -80,7 +76,7 @@ export default function KeywordSelect() {
     return (
         <Container>
             <Label>키워드 선택</Label>
-            <MultiIconSelectInput entrySetName="dummy" iconSize={72} value={value} onChange={handleChange} />
+            <MultiIconSelectInput entry={FormEntry} iconSize={64} value={value} onChange={handleChange} />
             <FormCompleteButton onPress={handlePressSubmit}>
                 <MaterialIcons name="check" size={64} color="white" />
             </FormCompleteButton>
@@ -89,7 +85,6 @@ export default function KeywordSelect() {
 }
 
 const Container = styled.View`
-    padding-top: 50px;
     flex-direction: column;
     align-items: center;
 `;

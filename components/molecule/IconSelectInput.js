@@ -102,7 +102,6 @@ const OptionRow = styled.View`
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-top: 32px;
 `;
 
 const ErrorDisplay = styled.Text`
