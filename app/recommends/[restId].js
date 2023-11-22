@@ -5,6 +5,7 @@ import { useLocalSearchParams } from "expo-router";
 import { useRestId } from "../context/RestaurantIdContext";
 import { useState, useEffect } from "react";
 import { getRestaurantDetails } from "../../api/recommend";
+import { CoverImage } from "../../components/molecule/CoverImage";
 
 export default function RestaurauntInfo() {
     const [restInfo, setRestInfo] = useState({});
@@ -44,9 +45,10 @@ export default function RestaurauntInfo() {
     if (!isReady) {
         return null;
     }
-
+    console.log(restInfo.coverImageLink);
     return (
         <SafeAreaView style={styles.container}>
+            <CoverImage imageSrc={restInfo.coverImageLink} />
             <InfoContainer>
                 <TitleLine title="스타벅스 안양점" subtitle="카페" />
             </InfoContainer>
