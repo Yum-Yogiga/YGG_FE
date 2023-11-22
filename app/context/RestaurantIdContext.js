@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getRestaurantDetails } from "../../api/recommend";
 
 const MAX_ENTRY_SIZE = 5;
 const MAX_ID = 500;
@@ -50,7 +49,7 @@ export const RestIdProvider = ({ children }) => {
 
     const value = {
         entry: idEntry,
-        entryLength: MAX_ENTRY_SIZE,
+        currentIndex,
         reroll,
         getNextEntry,
         getPreviousEntry,

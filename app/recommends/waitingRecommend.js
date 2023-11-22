@@ -11,7 +11,7 @@ export default function RestaurauntInfo() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push(`${entry[0]}`);
+            router.push(`./${entry[0]}`);
         }, 3000);
 
         return () => {

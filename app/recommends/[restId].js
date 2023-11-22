@@ -1,8 +1,24 @@
 import { SafeAreaView, StyleSheet } from "react-native";
 import { styled } from "styled-components/native";
 import { TitleLine, Address, Distance, MenuList, Keywords, ButtonPanel } from "organism";
+import { useLocalSearchParams } from "expo-router";
+import { useRestId } from "../context/RestaurantIdContext";
+import { useEffect } from "react";
+import { getRestaurantDetails } from "../../api/recommend";
 
 export default function RestaurauntInfo() {
+    const { entry, currentIndex, reroll, getNextEntry, getPreviousEntry } = useRestId();
+    console.log(entry[currentIndex]);
+    const onLoad = async () => {
+        try {
+            const result = await getRestaurantDetails(entry[currentIndex]).catch((e) => console.log(e));
+            console.log(result.data);
+        } catch (e) {
+            console.warn(e);
+        }
+    };
+    onLoad();
+
     return (
         <SafeAreaView style={styles.container}>
             <InfoContainer>

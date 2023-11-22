@@ -24,4 +24,17 @@ export const getRestaurantNames = async (keywordValues) => {
     }
 };
 
-export const getRestaurantDetails = async () => {};
+export const getRestaurantDetails = async (restId) => {
+    try {
+        const result = await axios({
+            method: "get",
+            url: `${API_END_POINT}/restaurants/${restId}`,
+            headers: {
+                accept: "*/*",
+            },
+        }).catch((e) => console.log(`E E recommend.js: 35 E E\n${e}`));
+        return result;
+    } catch (e) {
+        console.error(e);
+    }
+};
