@@ -20,11 +20,9 @@ const MyTheme = {
 export default function Layout() {
     const router = useRouter();
 
-    const { authState, onLogout } = useAuth();
-
     return (
-        <ThemeProvider value={MyTheme}>
-            <AuthProvider>
+        <AuthProvider>
+            <ThemeProvider value={MyTheme}>
                 <SafeAreaProvider>
                     <StatusBar backgroundColor="#FE6E00" />
                     <Stack
@@ -45,22 +43,14 @@ export default function Layout() {
                             title: null,
                         }}
                     >
-                        {authState?.authenticated ? (
-                            <>
-                                <Stack.Screen name="setkeywords" options={{ headerShown: false }} />
-                                <Stack.Screen name="recommends" options={{ headerShown: false }} />
-                                <Stack.Screen name="waitingReview" options={{ headerShown: false }} />
-                            </>
-                        ) : (
-                            <>
-                                <Stack.Screen name="index" options={{ headerShown: false }} />
-                                <Stack.Screen name="auth" options={{ headerShown: false }} />
-                            </>
-                        )}
+                        <Stack.Screen name="setkeywords" options={{ headerShown: false }} />
+                        <Stack.Screen name="recommends" options={{ headerShown: false }} />
+                        <Stack.Screen name="waitingReview" options={{ headerShown: false }} />
+                        <Stack.Screen name="auth" options={{ headerShown: false }} />
                         <Stack.Screen name="[unknownpage]" options={{ headerShown: true }} />
                     </Stack>
                 </SafeAreaProvider>
-            </AuthProvider>
-        </ThemeProvider>
+            </ThemeProvider>
+        </AuthProvider>
     );
 }

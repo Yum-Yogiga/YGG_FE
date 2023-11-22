@@ -1,34 +1,50 @@
+import { useState } from "react";
 import { LoginForm } from "organism";
 import { styled } from "styled-components/native";
 import { useRouter, Link } from "expo-router";
+import { useForm } from "hooks";
 
+import { useAuth } from "../context/AuthContext";
 import { signIn } from "api";
 import { KeyboardAvoidingView } from "react-native";
 
+const loginFormData = [
+    {
+        name: "userId",
+        placeholder: "ID",
+        validation: (value) => {
+            return "";
+        },
+    },
+    {
+        name: "password",
+        placeholder: "비밀번호",
+        validation: (value) => {
+            return "";
+        },
+    },
+];
+
 export default function Login() {
     const logo = require("assets/logo.png");
-
     const router = useRouter();
+    const { onLogin } = useAuth();
 
-    const formData = [
-        {
-            name: "userId",
-            placeholder: "ID",
-            validation: (value) => {
-                return "";
-            },
-        },
-        {
-            name: "password",
-            placeholder: "비밀번호",
-            validation: (value) => {
-                return "";
-            },
-        },
-    ];
+    const [showLoginFormError, setShowLoginFormError] = useState(false);
 
-    const handleSubmit = async (value) => {
-        const response = await signIn(value).then((res) => JSON.stringify(res));
+    const login = async () => {
+        const result = await onLogin(email, password);
+        if (result && result.error) {
+            alert(result.msg);
+        }
+    };
+
+    const dummyLogin = () => {};
+
+    const { values, errors, isLoading, handleChange, handleSubmit } = useForm(loginFormData);
+
+    const handleSubmitButtonPress = async (value) => {
+        handleSubmit;
     };
 
     return (
@@ -37,7 +53,16 @@ export default function Login() {
                 <LogoSpace>
                     <Logo source={logo} />
                 </LogoSpace>
-                <LoginForm formData={formData} onSubmit={handleSubmit} />
+                <LoginForm
+                    formData={loginFormData}
+                    values={values}
+                    errors={errors}
+                    handleChange={handleChange}
+                    isLoading={isLoading}
+                    onSubmitButtonPress={handleSubmitButtonPress}
+                    submitText="로그인"
+                    displayError={showLoginFormError}
+                />
                 <SignupText>
                     회원이 아니신가요? <SignupLink href="./signup">회원가입하기</SignupLink>
                 </SignupText>

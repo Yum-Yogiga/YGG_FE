@@ -63,7 +63,9 @@ export default function Signup() {
     const [showIdFormError, setShowIdFormError] = useState(false);
     const [showVerifFormError, setShowVerifFormError] = useState(false);
 
-    const completeIdForm = () => {};
+    const [idFormAnswer, setIdFormAnswer] = useState({});
+
+    const completeIdForm = (values) => {};
 
     const loginFunc = () => {};
 
@@ -143,9 +145,10 @@ const Container = styled.SafeAreaView`
 `;
 
 const LogoSpace = styled.View`
+    margin-top: 56px;
     height: 250px;
     justify-content: flex-end;
-    padding-bottom: 48px;
+    padding-bottom: 40px;
 `;
 
 const Logo = styled.Image.attrs({
