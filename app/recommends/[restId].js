@@ -13,12 +13,16 @@ import { useRestId } from "../context/RestaurantIdContext";
 import { useState, useEffect } from "react";
 import { getRestaurantDetails } from "../../api/recommend";
 import { CoverImage } from "../../components/molecule/CoverImage";
+import { useRouter } from "expo-router";
 
 export default function RestaurauntInfo() {
   const [restInfo, setRestInfo] = useState({});
   const [isReady, setIsReady] = useState(false);
   const { entry, currentIndex, reroll, getNextEntry, getPreviousEntry } =
     useRestId();
+  const router = useRouter();
+
+  const handleNextPageButtonPress = () => {};
 
   useEffect(() => {
     const getRestInfo = async () => {
@@ -33,13 +37,13 @@ export default function RestaurauntInfo() {
           address,
           tel,
           menuList,
-          likecount,
-          dislikecount,
+          likeCount,
+          dislikeCount,
         } = result.data;
         const rate =
-          dislikecount === 0
+          dislikeCount === 0
             ? 100
-            : Math.floor((100 * likecount) / (likecount + dislikecount));
+            : Math.floor((100 * likeCount) / (likeCount + dislikeCount));
         const coverImageLink = menuList[0] ? menuList[0].imageUrl : null;
         setRestInfo({
           coverImageLink,
@@ -66,11 +70,12 @@ export default function RestaurauntInfo() {
   if (!isReady) {
     return null;
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <CoverImage imageSrc={restInfo.coverImageLink} />
       <InfoContainer>
-        <TitleLine title={restInfo.name} />
+        <TitleLine title={restInfo.name} rate={restInfo.rate} />
       </InfoContainer>
       <InfoContainer>
         <Address address={restInfo.address} />
