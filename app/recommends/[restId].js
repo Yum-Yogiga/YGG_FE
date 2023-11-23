@@ -66,21 +66,20 @@ export default function RestaurauntInfo() {
   if (!isReady) {
     return null;
   }
-
   return (
     <SafeAreaView style={styles.container}>
       <CoverImage imageSrc={restInfo.coverImageLink} />
       <InfoContainer>
-        <TitleLine title="스타벅스 안양점" subtitle="카페" />
+        <TitleLine title={restInfo.name} />
       </InfoContainer>
       <InfoContainer>
-        <Address address="경기 안양시 동안구 홍길동대로 13번길 15 가나다라 무역센터 5층" />
+        <Address address={restInfo.address} />
       </InfoContainer>
       <InfoContainer>
-        <Distance distance={300} />
+        <Distance mapUrl={restInfo.mapLink} />
       </InfoContainer>
       <InfoContainer>
-        <MenuList />
+        <MenuList menuList={restInfo.menuList} />
       </InfoContainer>
       <InfoContainer>
         <Keywords />
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
 const InfoContainer = styled.View`
   width: 100%;
   margin-bottom: 1px;
-  padding: 8px 20px;
+  padding: 4px 20px;
   border-radius: 4px;
   background-color: white;
 `;
