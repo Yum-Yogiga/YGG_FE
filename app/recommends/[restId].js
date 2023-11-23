@@ -20,9 +20,18 @@ export default function RestaurauntInfo() {
   const [isReady, setIsReady] = useState(false);
   const { entry, currentIndex, reroll, getNextEntry, getPreviousEntry } =
     useRestId();
+
+  const entryLength = entry.length;
+
   const router = useRouter();
 
   const handleNextPageButtonPress = () => {};
+
+  const handlePrevButtonPress = () => {};
+
+  const handleOkButtonPress = () => {};
+
+  const handleRerollButtonPress = () => {};
 
   useEffect(() => {
     const getRestInfo = async () => {
@@ -89,7 +98,7 @@ export default function RestaurauntInfo() {
       <InfoContainer>
         <Keywords />
       </InfoContainer>
-      <ButtonPanel />
+      <ButtonPanel currentPage={currentIndex} totalPage={entryLength} />
     </SafeAreaView>
   );
 }
