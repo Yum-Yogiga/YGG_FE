@@ -18,27 +18,38 @@ import { useRouter } from "expo-router";
 export default function RestaurauntInfo() {
   const [restInfo, setRestInfo] = useState({});
   const [isReady, setIsReady] = useState(false);
-  const { entry, currentIndex, reroll, getNextEntry, getPreviousEntry } =
-    useRestId();
-
-  const entryLength = entry.length;
+  const {
+    getCurrentId,
+    entryLength,
+    currentIndex,
+    reroll,
+    goNextPage,
+    goPreviousPage,
+  } = useRestId();
+  const [rerollReady, setRerollReady] = useState(true);
 
   const router = useRouter();
 
-  const handleNextPageButtonPress = () => {};
+  const handleNextPageButtonPress = () => {
+    goNextPage();
+  };
 
-  const handlePrevButtonPress = () => {};
+  const handlePrevButtonPress = () => {
+    goPreviousPage();
+  };
 
   const handleOkButtonPress = () => {};
 
-  const handleRerollButtonPress = () => {};
+  const handleRerollButtonPress = () => {
+    reroll();
+  };
 
   useEffect(() => {
     const getRestInfo = async () => {
       try {
         setIsReady(false);
-        const result = await getRestaurantDetails(entry[currentIndex]).catch(
-          (e) => console.log(e)
+        const result = await getRestaurantDetails(getCurrentId()).catch((e) =>
+          console.log(e)
         );
         const {
           name,
@@ -98,7 +109,14 @@ export default function RestaurauntInfo() {
       <InfoContainer>
         <Keywords />
       </InfoContainer>
-      <ButtonPanel currentPage={currentIndex} totalPage={entryLength} />
+      <ButtonPanel
+        showRerollButton={rerollReady}
+        handleLeftButtonPress={handlePrevButtonPress}
+        handleRightButtonPress={handleNextPageButtonPress}
+        handleRerollButtonPress={handleRerollButtonPress}
+        currentPage={currentIndex + 1}
+        totalPage={entryLength}
+      />
     </SafeAreaView>
   );
 }
