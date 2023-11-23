@@ -8,7 +8,6 @@ import {
   Keywords,
   ButtonPanel,
 } from "organism";
-import { useLocalSearchParams } from "expo-router";
 import { useRestId } from "../context/RestaurantIdContext";
 import { useState, useEffect } from "react";
 import { getRestaurantDetails } from "../../api/recommend";
@@ -25,9 +24,8 @@ export default function RestaurauntInfo() {
     reroll,
     goNextPage,
     goPreviousPage,
+    rerollReady,
   } = useRestId();
-  const [rerollReady, setRerollReady] = useState(true);
-
   const router = useRouter();
 
   const handleNextPageButtonPress = () => {
@@ -59,6 +57,7 @@ export default function RestaurauntInfo() {
           menuList,
           likeCount,
           dislikeCount,
+          keywordCounts,
         } = result.data;
         const rate =
           dislikeCount === 0
@@ -73,6 +72,7 @@ export default function RestaurauntInfo() {
           address,
           tel,
           menuList,
+          keywords: keywordCounts,
         });
         setIsReady(true);
       } catch (e) {
@@ -107,7 +107,7 @@ export default function RestaurauntInfo() {
         <MenuList menuList={restInfo.menuList} />
       </InfoContainer>
       <InfoContainer>
-        <Keywords />
+        <Keywords keywords={restInfo.keywords} />
       </InfoContainer>
       <ButtonPanel
         showRerollButton={rerollReady}

@@ -20,6 +20,7 @@ export const RestIdProvider = ({ children }) => {
   const [idEntry, setIdEntry] = useState([]);
   const entryLength = idEntry.length;
   const [currentIndex, setCurrentIndex] = useState(1);
+  const [rerollReady, setRerollReady] = useState(false);
 
   const getCurrentId = () => {
     return idEntry[currentIndex];
@@ -29,6 +30,7 @@ export const RestIdProvider = ({ children }) => {
     let newIndex = 1;
     if (currentIndex + 1 >= entryLength) newIndex = 0;
     else newIndex = currentIndex + 1;
+    if (newIndex === entryLength - 1) setRerollReady(true);
     setCurrentIndex(newIndex);
     router.push(`./${idEntry[newIndex]}`);
   };
@@ -37,6 +39,7 @@ export const RestIdProvider = ({ children }) => {
     let newIndex = 0;
     if (currentIndex - 1 < 0) newIndex = entryLength - 1;
     else newIndex = currentIndex - 1;
+    if (newIndex === entryLength - 1) setRerollReady(true);
     setCurrentIndex(newIndex);
     router.push(`./${idEntry[newIndex]}`);
   };
@@ -60,6 +63,7 @@ export const RestIdProvider = ({ children }) => {
     const arrNewEntry = Array.from(newEntry);
     setIdEntry(arrNewEntry);
     setCurrentIndex(0);
+    setRerollReady(false);
     router.push(`./${arrNewEntry[0]}`);
   };
 
@@ -75,6 +79,7 @@ export const RestIdProvider = ({ children }) => {
     goNextPage: getNextEntry,
     goPreviousPage: getPreviousEntry,
     reroll,
+    rerollReady,
   };
 
   return (
