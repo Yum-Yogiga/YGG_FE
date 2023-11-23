@@ -26,12 +26,15 @@ export function MenuList({
       {menuList.length < 0 ? (
         <NoMenu>"메뉴 정보가 없습니다"</NoMenu>
       ) : (
-        menuList.map(({ name, price }, index) => (
-          <MenuLine key={index}>
-            <MenuName>{name}</MenuName>
-            <MenuPrice>{price}</MenuPrice>
-          </MenuLine>
-        ))
+        menuList.map(
+          ({ name, price }, index) =>
+            index < 4 && (
+              <MenuLine key={index}>
+                <MenuName>{name}</MenuName>
+                <MenuPrice>{price}</MenuPrice>
+              </MenuLine>
+            )
+        )
       )}
     </Container>
   );
