@@ -36,7 +36,13 @@ export default function RestaurauntInfo() {
     goPreviousPage();
   };
 
-  const handleOkButtonPress = () => {};
+  const handleOkButtonPress = () => {
+    const Id = getCurrentId();
+    router.push({
+      pathname: `/waitingReview/reviewWait`,
+      params: { Id },
+    });
+  };
 
   const handleRerollButtonPress = () => {
     reroll();
@@ -114,6 +120,7 @@ export default function RestaurauntInfo() {
         handleLeftButtonPress={handlePrevButtonPress}
         handleRightButtonPress={handleNextPageButtonPress}
         handleRerollButtonPress={handleRerollButtonPress}
+        handleOkButtonPress={handleOkButtonPress}
         currentPage={currentIndex + 1}
         totalPage={entryLength}
       />
