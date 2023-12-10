@@ -5,107 +5,133 @@ import { useRouter } from "expo-router";
 import { styled } from "styled-components/native";
 import { MultiIconSelectInput } from "molecule";
 
-/*
-const dummyOptions = [
-    {
-        name: "키워드1",
-        optionValue: "keyword_1",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드2",
-        optionValue: "keyword_2",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드3",
-        optionValue: "keyword_3",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드4",
-        optionValue: "keyword_4",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드5",
-        optionValue: "keyword_5",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드6",
-        optionValue: "keyword_6",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드7",
-        optionValue: "keyword_7",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드8",
-        optionValue: "keyword_8",
-        icon: "price_cheap",
-    },
-    {
-        name: "키워드9",
-        optionValue: "keyword_9",
-        icon: "price_cheap",
-    },
+const FormEntry = [
+  {
+    name: "청결해요",
+    optionValue: "clean",
+    icon: "keyword_clean",
+  },
+  {
+    name: "맛있어요",
+    optionValue: "tasty",
+    icon: "keyword_tasty",
+  },
+  {
+    name: "양이 많아요",
+    optionValue: "largePortion",
+    icon: "keyword_amount",
+  },
+
+  {
+    name: "인테리어가 좋아요",
+    optionValue: "interior",
+    icon: "keyword_interior",
+  },
+  {
+    name: "친절해요",
+    optionValue: "kind",
+    icon: "keyword_kind",
+  },
+  {
+    name: "재료가 신선해요",
+    optionValue: "fresh",
+    icon: "keyword_fresh",
+  },
+  {
+    name: "혼밥하기 좋아요",
+    optionValue: "solo",
+    icon: "keyword_solo",
+  },
+  {
+    name: "가성비가 좋아요",
+    optionValue: "lowCost",
+    icon: "keyword_lowCost",
+  },
+
+  {
+    name: "특별해요",
+    optionValue: "special",
+    icon: "keyword_special",
+  },
 ];
-*/
+
+const optionsList = [
+  "clean",
+  "tasty",
+  "largePortion",
+  "interior",
+  "kind",
+  "fresh",
+  "solo",
+  "lowCost",
+  "special",
+];
 
 export default function KeywordSelect() {
-    const [value, setValue] = useState([]);
+  const [value, setValue] = useState([]);
 
-    const router = useRouter();
+  const router = useRouter();
 
-    const handlePressSubmit = () => {
-        router.push("/recommends/waitingRecommend");
-    };
+  const handlePressSubmit = async () => {
+    /*
+        const result = [];
+        optionsList.forEach((listValue) => {
+            const hasVal = value.includes(listValue) ? 1 : 0;
+            result.push(hasVal);
+        });
+        const response = await getRestaurantNames(result);
+        console.log(`~ ~ keywordselect.js ~ ~\n${response}`);
+        */
+    router.push("/setkeywords/optionselect");
+  };
 
-    const handleChange = (selectedValue) => {
-        const index = value.indexOf(selectedValue);
-        const newValue = [...value];
+  const handleChange = (selectedValue) => {
+    const index = value.indexOf(selectedValue);
+    const newValue = [...value];
 
-        if (index === -1) {
-            newValue.push(selectedValue);
-        } else {
-            newValue.splice(index, 1);
-        }
+    if (index === -1) {
+      newValue.push(selectedValue);
+    } else {
+      newValue.splice(index, 1);
+    }
 
-        setValue(newValue);
-    };
+    setValue(newValue);
+    console.log(newValue);
+  };
 
-    return (
-        <Container>
-            <Label>어울리는 키워드를 골라주세요!</Label>
-            <MultiIconSelectInput entrySetName="dummy" iconSize={72} value={value} onChange={handleChange} />
-            <FormCompleteButton onPress={handlePressSubmit}>
-                <MaterialIcons name="check" size={64} color="white" />
-            </FormCompleteButton>
-        </Container>
-    );
+  return (
+    <Container>
+      <Label>식당에 어울리는 키워드를 골라주세요!</Label>
+      <MultiIconSelectInput
+        entry={FormEntry}
+        iconSize={64}
+        value={value}
+        onChange={handleChange}
+      />
+      <FormCompleteButton onPress={handlePressSubmit}>
+        <MaterialIcons name="check" size={64} color="white" />
+      </FormCompleteButton>
+    </Container>
+  );
 }
 
 const Container = styled.View`
-    padding-top: 30px;
-    flex-direction: column;
-    align-items: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Label = styled.Text`
-    font-size: 24px;
-    text-align: center;
-    margin-top: 80px;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 80px;
 `;
 
 const FormCompleteButton = styled.TouchableOpacity`
-    margin-top: 8px;
-    width: 72px;
-    height: 72px;
-    border-radius: 36px;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffaf42;
+  margin-top: 8px;
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffaf42;
 `;

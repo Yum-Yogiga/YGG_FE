@@ -8,28 +8,51 @@ import {
   Keywords,
   ButtonPanel,
 } from "organism";
+import { useRestId } from "../context/RestaurantIdContext";
 import { useState, useEffect } from "react";
-import { getRestaurantDetails } from "api/recommend";
-import { CoverImage } from "molecule/CoverImage";
+import { getRestaurantDetails } from "../../api/recommend";
+import { CoverImage } from "../../components/molecule/CoverImage";
 import { useRouter } from "expo-router";
-import { useLocalSearchParams } from "expo-router";
 
-export default function ReviewWait() {
+export default function RestaurauntInfo() {
   const [restInfo, setRestInfo] = useState({});
   const [isReady, setIsReady] = useState(false);
+  const {
+    getCurrentId,
+    entryLength,
+    currentIndex,
+    reroll,
+    goNextPage,
+    goPreviousPage,
+    rerollReady,
+  } = useRestId();
   const router = useRouter();
-  const { Id } = useLocalSearchParams();
+
+  const handleNextPageButtonPress = () => {
+    goNextPage();
+  };
+
+  const handlePrevButtonPress = () => {
+    goPreviousPage();
+  };
 
   const handleOkButtonPress = () => {
-    console.log("누름");
-    router.push("./goodbad");
+    const Id = getCurrentId();
+    router.push({
+      pathname: `/waitingReview/reviewWait`,
+      params: { Id },
+    });
+  };
+
+  const handleRerollButtonPress = () => {
+    reroll();
   };
 
   useEffect(() => {
     const getRestInfo = async () => {
       try {
         setIsReady(false);
-        const result = await getRestaurantDetails(Id).catch((e) =>
+        const result = await getRestaurantDetails(getCurrentId()).catch((e) =>
           console.log(e)
         );
         const {
@@ -93,15 +116,13 @@ export default function ReviewWait() {
         <Keywords keywords={restInfo.keywords} />
       </InfoContainer>
       <ButtonPanel
-        showLeftButton={false}
-        showRightButton={false}
-        showRerollButton={false}
-        showCancelButton={true}
-        showPageNum={false}
+        showRerollButton={rerollReady}
+        handleLeftButtonPress={handlePrevButtonPress}
+        handleRightButtonPress={handleNextPageButtonPress}
+        handleRerollButtonPress={handleRerollButtonPress}
         handleOkButtonPress={handleOkButtonPress}
-        handleCancelButtonPress={() => {
-          router.push("/setkeywords/optionselect");
-        }}
+        currentPage={currentIndex + 1}
+        totalPage={entryLength}
       />
     </SafeAreaView>
   );
