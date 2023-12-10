@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 
 import { styled } from "styled-components/native";
 import { MultiIconSelectInput } from "molecule";
-import { getRestaurantNames } from "../../api/recommend";
+import { getRestaurantIDs } from "api";
 
 const FormEntry = [
     {
@@ -66,16 +66,15 @@ export default function KeywordSelect() {
     const params = useLocalSearchParams();
 
     const handlePressSubmit = async () => {
-        /*
         const result = [];
         optionsList.forEach((listValue) => {
             const hasVal = value.includes(listValue) ? 1 : 0;
             result.push(hasVal);
         });
-        const response = await getRestaurantNames(result);
+
+        const response = await getRestaurantIDs(result);
+
         console.log(`~ ~ keywordselect.js ~ ~\n${response}`);
-        */
-        router.push("/recommends/waitingRecommend");
     };
 
     const handleChange = (selectedValue) => {

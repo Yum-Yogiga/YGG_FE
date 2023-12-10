@@ -2,7 +2,7 @@ import { API_END_POINT } from "../constants/api";
 import axios from "axios";
 import qs from "qs";
 
-export const getRestaurantNames = async (keywordValues) => {
+export const getRestaurantIDs = async (keywordValues) => {
     try {
         const result = await axios({
             method: "get",
